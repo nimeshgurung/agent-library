@@ -65,16 +65,17 @@ export function CatalogFab(): ReactElement | null {
   }
 
   return (
-    <div className="catalog-fab" aria-label="Catalog quick access">
-      <a
-        href={resolvedUrl}
-        target="_blank"
-        rel="noreferrer"
-        className="catalog-fab__button"
-        title="View copilot-catalog.json"
-      >
-        View copilot-catalog.json
-      </a>
-    </div>
+    <a
+      href={resolvedUrl}
+      target="_blank"
+      rel="noreferrer"
+      className="chatmode-card__install-button"
+      title="View copilot-catalog.json"
+    >
+      <img
+        src="https://img.shields.io/badge/View-Catalog-f97316?logo=json&logoColor=white"
+        alt="View copilot-catalog.json"
+      />
+    </a>
   );
 }

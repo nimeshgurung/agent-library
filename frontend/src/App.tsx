@@ -239,6 +239,19 @@ export function App(): ReactElement {
     <div id="main-content" className="app-root" role="application" aria-label="Chatmode explorer">
       <header className="app-header">
         <h1>Agent Library</h1>
+        <div className="app-header__actions">
+          <a
+            href="vscode:extension/nimsbhai.agent-hub"
+            className="chatmode-card__install-button"
+            title="Install Agent Hub Extension"
+          >
+            <img
+              src="https://img.shields.io/badge/Install-Agent%20Hub-007ACC?logo=visualstudiocode"
+              alt="Install Agent Hub Extension"
+            />
+          </a>
+          <CatalogFab />
+        </div>
       </header>
 
       <SearchBar
@@ -310,7 +323,6 @@ export function App(): ReactElement {
         }}
         resolvedPath={resolvedChatmodePath}
       />
-      <CatalogFab />
     </div>
   );
 }
