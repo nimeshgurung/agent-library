@@ -48,7 +48,12 @@ jobs:
         run: npm run generate:catalog
 
       - name: Build frontend
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run build
+
+      - name: Copy catalog to dist
+        run: cp copilot-catalog.json frontend/dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
