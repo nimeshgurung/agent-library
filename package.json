@@ -1,0 +1,48 @@
+{
+  "name": "artifact-hub-collection",
+  "version": "1.0.0",
+  "description": "Enterprise template for publishing internal AI artifacts (chatmodes, prompts, instructions, tasks)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bootstrap": "npm install && cd frontend && npm install",
+    "generate:chatmode": "tsx scripts/generators/chatmode.ts",
+    "generate:prompt": "tsx scripts/generators/prompt.ts",
+    "generate:instructions": "tsx scripts/generators/instructions.ts",
+    "generate:task": "tsx scripts/generators/task.ts",
+    "generate:catalog": "tsx scripts/generate-catalog.ts",
+    "list:artifacts": "tsx scripts/list-artifacts.ts",
+    "delete:artifact": "tsx scripts/delete-artifact.ts",
+    "sync": "tsx scripts/sync-artifacts.ts",
+    "dev": "npm run sync && npm --prefix frontend run dev",
+    "build": "npm run sync && npm run generate:catalog && npm --prefix frontend run build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.16.2",
+    "typescript": "^5.4.5"
+  },
+  "keywords": [
+    "copilot",
+    "ai",
+    "chatmode",
+    "prompts",
+    "instructions",
+    "artifacts",
+    "enterprise"
+  ],
+  "license": "MIT"
+}
+

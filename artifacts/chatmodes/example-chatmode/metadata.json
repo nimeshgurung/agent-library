@@ -1,0 +1,16 @@
+{
+  "id": "example-chatmode",
+  "name": "Example Chatmode",
+  "description": "Duplicate test",
+  "type": "chatmode",
+  "category": "Test",
+  "tags": [
+    "test"
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "Test"
+  },
+  "createdAt": "2025-11-18T10:58:40.925Z",
+  "updatedAt": "2025-11-18T10:58:40.925Z"
+}

@@ -1,0 +1,5 @@
+* text=auto
+
+# Keep shell scripts executable
+*.sh linguist-language=Shell
+

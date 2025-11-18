@@ -1,0 +1,18 @@
+{
+  "id": "example-prompt",
+  "name": "Example Prompt",
+  "description": "A sample prompt template for API design",
+  "type": "prompt",
+  "category": "Development",
+  "tags": [
+    "api",
+    "design",
+    "template"
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "Artifact Hub Team"
+  },
+  "createdAt": "2025-11-18T11:04:54.682Z",
+  "updatedAt": "2025-11-18T11:04:54.682Z"
+}

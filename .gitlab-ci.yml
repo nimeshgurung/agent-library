@@ -1,0 +1,70 @@
+image: node:20.18.0
+
+stages:
+  - install
+  - lint
+  - typecheck
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+  NPM_CONFIG_CACHE: '$CI_PROJECT_DIR/.npm'
+
+cache:
+  key: '$CI_COMMIT_REF_SLUG'
+  paths:
+    - .npm/
+    - node_modules/
+    - frontend/node_modules/
+  policy: pull-push
+
+install:
+  stage: install
+  script:
+    - npm ci
+    - cd frontend && npm ci
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - node_modules/
+      - frontend/node_modules/
+
+lint:
+  stage: lint
+  needs: ['install']
+  script:
+    - npm run lint
+
+typecheck:
+  stage: typecheck
+  needs: ['install']
+  script:
+    - npm run typecheck
+
+build:
+  stage: build
+  needs: ['lint', 'typecheck']
+  script:
+    - npm run generate:catalog
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - copilot-catalog.json
+      - frontend/dist/
+
+pages:
+  stage: deploy
+  needs: ['build']
+  script:
+    - mkdir -p public
+    - cp -r frontend/dist/* public/
+    - cp copilot-catalog.json public/
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+

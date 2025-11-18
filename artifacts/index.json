@@ -1,0 +1,95 @@
+{
+  "artifacts": [
+    {
+      "id": "example-chatmode",
+      "name": "Example Chatmode",
+      "description": "A sample chatmode to demonstrate the artifact structure",
+      "type": "chatmode",
+      "category": "Examples",
+      "tags": [
+        "example",
+        "demo"
+      ],
+      "version": "1.0.0",
+      "author": {
+        "name": "Artifact Hub"
+      },
+      "createdAt": "2025-11-18T09:53:07.633Z",
+      "updatedAt": "2025-11-18T09:53:07.633Z",
+      "paths": {
+        "metadata": "chatmodes/example-chatmode/metadata.json",
+        "content": "chatmodes/example-chatmode/example-chatmode.chatmode.md"
+      },
+      "slug": "chatmodes/example-chatmode"
+    },
+    {
+      "id": "example-instructions",
+      "name": "Example Instructions",
+      "description": "Step-by-step guide for common workflows",
+      "type": "instructions",
+      "category": "Documentation",
+      "tags": [
+        "documentation",
+        "guide",
+        "tutorial"
+      ],
+      "version": "1.0.0",
+      "author": {
+        "name": "Artifact Hub Team"
+      },
+      "createdAt": "2025-11-18T10:57:36.975Z",
+      "updatedAt": "2025-11-18T10:57:36.975Z",
+      "paths": {
+        "metadata": "instructions/example-instructions/metadata.json",
+        "content": "instructions/example-instructions/example-instructions.instructions.md"
+      },
+      "slug": "instructions/example-instructions"
+    },
+    {
+      "id": "example-task",
+      "name": "Example Task",
+      "description": "A sample task definition for deployment workflows",
+      "type": "task",
+      "category": "DevOps",
+      "tags": [
+        "deployment",
+        "automation",
+        "ci-cd"
+      ],
+      "version": "1.0.0",
+      "author": {
+        "name": "Artifact Hub Team"
+      },
+      "createdAt": "2025-11-18T10:57:50.506Z",
+      "updatedAt": "2025-11-18T10:57:50.506Z",
+      "paths": {
+        "metadata": "tasks/example-task/metadata.json",
+        "content": "tasks/example-task/example-task.task.md"
+      },
+      "slug": "tasks/example-task"
+    },
+    {
+      "id": "example-prompt",
+      "name": "Example Prompt",
+      "description": "A sample prompt template for API design",
+      "type": "prompt",
+      "category": "Development",
+      "tags": [
+        "api",
+        "design",
+        "template"
+      ],
+      "version": "1.0.0",
+      "author": {
+        "name": "Artifact Hub Team"
+      },
+      "createdAt": "2025-11-18T11:04:54.682Z",
+      "updatedAt": "2025-11-18T11:04:54.682Z",
+      "paths": {
+        "metadata": "prompts/example-prompt/metadata.json",
+        "content": "prompts/example-prompt/example-prompt.prompt.md"
+      },
+      "slug": "prompts/example-prompt"
+    }
+  ]
+}
