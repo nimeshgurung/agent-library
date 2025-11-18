@@ -1,7 +1,9 @@
 export function resolveChatmodeAssetPath(input: string): string {
   const trimmed = input.trim();
+  const baseUrl = import.meta.env.BASE_URL;
+
   if (trimmed === '') {
-    return '/artifacts';
+    return `${baseUrl}artifacts`;
   }
 
   const lower = trimmed.toLowerCase();
@@ -10,8 +12,9 @@ export function resolveChatmodeAssetPath(input: string): string {
   }
 
   if (trimmed.startsWith('/')) {
-    return trimmed;
+    // If it's already an absolute path, prepend base URL
+    return `${baseUrl}${trimmed.replace(/^\/+/, '')}`;
   }
 
-  return `/artifacts/${trimmed.replace(/^\/+/, '')}`;
+  return `${baseUrl}artifacts/${trimmed.replace(/^\/+/, '')}`;
 }

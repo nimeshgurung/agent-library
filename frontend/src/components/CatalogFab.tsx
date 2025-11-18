@@ -8,7 +8,8 @@ interface ImportMetaEnv {
 
 function getCandidateUrls(): string[] {
   const env = import.meta.env as ImportMetaEnv;
-  const frontend = env.VITE_CATALOG_FRONTEND_URL ?? '/copilot-catalog.json';
+  const baseUrl = import.meta.env.BASE_URL;
+  const frontend = env.VITE_CATALOG_FRONTEND_URL ?? `${baseUrl}copilot-catalog.json`;
   const gh = env.VITE_CATALOG_GITHUB_URL ?? '';
   const gl = env.VITE_CATALOG_GITLAB_URL ?? '';
   const urls: string[] = [frontend];

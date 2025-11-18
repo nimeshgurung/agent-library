@@ -17,7 +17,8 @@ interface UseArtifactsDataResult {
 
 async function fetchArtifactsIndex(): Promise<ReadonlyArray<ArtifactEntry>> {
   const cacheBuster = `?v=${Date.now().toString()}`;
-  const response = await fetch(`/artifacts/index.json${cacheBuster}`, {
+  const baseUrl = import.meta.env.BASE_URL;
+  const response = await fetch(`${baseUrl}artifacts/index.json${cacheBuster}`, {
     cache: 'no-cache',
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
