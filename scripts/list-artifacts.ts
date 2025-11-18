@@ -11,7 +11,8 @@ const projectRoot = resolve(__dirname, '..');
 function listArtifacts(): void {
   const indexPath = resolve(projectRoot, 'artifacts', 'index.json');
   const indexContent = readFileSync(indexPath, 'utf-8');
-  const index: ArtifactsIndex = JSON.parse(indexContent);
+  const parsed: unknown = JSON.parse(indexContent);
+  const index: ArtifactsIndex = parsed as ArtifactsIndex;
 
   if (index.artifacts.length === 0) {
     console.log('📋 No artifacts found.');
@@ -23,10 +24,10 @@ function listArtifacts(): void {
     return;
   }
 
-  console.log(`📋 Available Artifacts (${index.artifacts.length}):\n`);
+  console.log(`📋 Available Artifacts (${String(index.artifacts.length)}):\n`);
 
   // Group by type
-  const grouped = index.artifacts.reduce(
+  const grouped = index.artifacts.reduce<Record<string, typeof index.artifacts>>(
     (acc, artifact) => {
       if (!acc[artifact.type]) {
         acc[artifact.type] = [];
@@ -34,7 +35,7 @@ function listArtifacts(): void {
       acc[artifact.type]?.push(artifact);
       return acc;
     },
-    {} as Record<string, typeof index.artifacts>,
+    {},
   );
 
   // Type labels with colors

@@ -108,12 +108,12 @@ function generateCatalog(): void {
   );
 
   // Print statistics by type
-  const stats = artifacts.reduce(
+  const stats = artifacts.reduce<Record<string, number>>(
     (acc, a) => {
       acc[a.type] = (acc[a.type] || 0) + 1;
       return acc;
     },
-    {} as Record<string, number>,
+    {},
   );
 
   console.log('\n📊 Artifact Statistics:');

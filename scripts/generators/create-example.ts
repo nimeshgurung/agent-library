@@ -41,7 +41,7 @@ This is an example chatmode that shows how artifacts are structured in the Artif
 
 ---
 
-*Created: ${new Date().toISOString().split('T')[0]}*
+*Created: ${new Date().toISOString().split('T')[0] ?? 'unknown'}*
 *Version: 1.0.0*
 `;
 

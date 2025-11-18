@@ -48,7 +48,8 @@ async function deleteArtifact(): Promise<void> {
 
   const indexPath = resolve(projectRoot, 'artifacts', 'index.json');
   const indexContent = readFileSync(indexPath, 'utf-8');
-  const index: ArtifactsIndex = JSON.parse(indexContent);
+  const parsed: unknown = JSON.parse(indexContent);
+  const index: ArtifactsIndex = parsed as ArtifactsIndex;
 
   // Find the artifact
   const artifact = index.artifacts.find((a) => a.id === args.id);

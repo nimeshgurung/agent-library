@@ -32,7 +32,8 @@
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.3.3",
     "tsx": "^4.16.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.47.0"
   },
   "keywords": [
     "copilot",
@@ -45,4 +46,3 @@
   ],
   "license": "MIT"
 }
-

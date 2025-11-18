@@ -1,10 +1,17 @@
 import { useEffect, useMemo, useState, type ReactElement } from 'react';
 
+interface ImportMetaEnv {
+  readonly VITE_CATALOG_FRONTEND_URL?: string;
+  readonly VITE_CATALOG_GITHUB_URL?: string;
+  readonly VITE_CATALOG_GITLAB_URL?: string;
+}
+
 function getCandidateUrls(): string[] {
-  const frontend = (import.meta as any).env.VITE_CATALOG_FRONTEND_URL || '/copilot-catalog.json';
-  const gh = (import.meta as any).env.VITE_CATALOG_GITHUB_URL || '';
-  const gl = (import.meta as any).env.VITE_CATALOG_GITLAB_URL || '';
-  const urls = [frontend];
+  const env = import.meta.env as ImportMetaEnv;
+  const frontend = env.VITE_CATALOG_FRONTEND_URL ?? '/copilot-catalog.json';
+  const gh = env.VITE_CATALOG_GITHUB_URL ?? '';
+  const gl = env.VITE_CATALOG_GITLAB_URL ?? '';
+  const urls: string[] = [frontend];
   if (gh) urls.push(gh);
   if (gl) urls.push(gl);
   return urls;
@@ -34,12 +41,15 @@ export function CatalogFab(): ReactElement | null {
 
   useEffect(() => {
     let cancelled = false;
-    (async () => {
+    void (async () => {
       for (const url of candidates) {
-        // eslint-disable-next-line no-await-in-loop
         const ok = await probeUrl(url);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (cancelled) {
+          return;
+        }
         if (ok) {
-          if (!cancelled) setResolvedUrl(url);
+          setResolvedUrl(url);
           break;
         }
       }
