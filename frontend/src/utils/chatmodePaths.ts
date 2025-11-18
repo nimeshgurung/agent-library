@@ -16,5 +16,10 @@ export function resolveChatmodeAssetPath(input: string): string {
     return `${baseUrl}${trimmed.replace(/^\/+/, '')}`;
   }
 
+  // If the path already starts with "artifacts/", don't double-prefix
+  if (trimmed.startsWith('artifacts/')) {
+    return `${baseUrl}${trimmed}`;
+  }
+
   return `${baseUrl}artifacts/${trimmed.replace(/^\/+/, '')}`;
 }

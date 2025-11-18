@@ -7,7 +7,7 @@ export type ArtifactType = z.infer<typeof ArtifactTypeSchema>;
 // Author Schema
 export const AuthorSchema = z.object({
   name: z.string(),
-  url: z.string().url().optional(),
+  url: z.string().optional(),
 });
 export type Author = z.infer<typeof AuthorSchema>;
 
@@ -47,7 +47,7 @@ export type CatalogArtifact = z.infer<typeof CatalogArtifactSchema>;
 // Repository Schema
 export const RepositorySchema = z.object({
   type: z.enum(['git', 'github', 'gitlab']),
-  url: z.string().url(),
+  url: z.string(),
   branch: z.string(),
 });
 export type Repository = z.infer<typeof RepositorySchema>;
@@ -60,7 +60,7 @@ export const CatalogMetadataSchema = z.object({
   author: AuthorSchema,
   repository: RepositorySchema,
   license: z.string(),
-  homepage: z.string().url().optional(),
+  homepage: z.string().optional(),
   tags: z.array(z.string()).optional(),
   categories: z.array(z.string()).optional(),
 });
@@ -68,7 +68,7 @@ export type CatalogMetadata = z.infer<typeof CatalogMetadataSchema>;
 
 // Complete Catalog Schema
 export const CopilotCatalogSchema = z.object({
-  $schema: z.string().url().optional(),
+  $schema: z.string().optional(),
   version: z.string(),
   catalog: CatalogMetadataSchema,
   artifacts: z.array(CatalogArtifactSchema),

@@ -16,6 +16,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
 
 function transformToCatalogArtifact(entry: IndexEntry): CatalogArtifact {
+  // Ensure paths are relative to the catalog root (which is artifacts/)
+  // But the catalog says "path": "artifacts/..." so clients can find it relative to catalog root
   return {
     id: entry.id,
     type: entry.type,
@@ -64,6 +66,12 @@ function generateCatalog(): void {
   const categories = [...new Set(index.artifacts.map((a) => a.category))];
   const allTags = [...new Set(index.artifacts.flatMap((a) => a.tags))];
 
+  // Use placeholders that the extension can replace at runtime, or the user can replace with env vars if they want.
+  const authorName = process.env['CATALOG_AUTHOR'] || 'Artifact Hub Collection';
+  const authorUrl = process.env['CATALOG_URL'] || '__CATALOG_URL__';
+  const repoUrl = process.env['CATALOG_URL'] || '__CATALOG_URL__';
+  const homepage = process.env['CATALOG_HOMEPAGE'] || '__CATALOG_URL__';
+
   // Create the catalog
   const catalog: CopilotCatalog = {
     $schema:
@@ -75,16 +83,16 @@ function generateCatalog(): void {
       description:
         'Enterprise collection of AI development artifacts including chatmodes, prompts, instructions, and tasks',
       author: {
-        name: 'Your Organization',
-        url: 'https://example.com',
+        name: authorName,
+        url: authorUrl,
       },
       repository: {
         type: 'git',
-        url: 'https://github.com/your-org/artifact-hub-collection',
+        url: repoUrl,
         branch: 'main',
       },
       license: 'MIT',
-      homepage: 'https://your-org.github.io/artifact-hub-collection',
+      homepage,
       tags: allTags.slice(0, 20),
       categories,
     },

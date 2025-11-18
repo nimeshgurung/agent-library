@@ -6,16 +6,16 @@
     "name": "Artifact Hub Collection",
     "description": "Enterprise collection of AI development artifacts including chatmodes, prompts, instructions, and tasks",
     "author": {
-      "name": "Your Organization",
-      "url": "https://example.com"
+      "name": "Artifact Hub Collection",
+      "url": "__CATALOG_URL__"
     },
     "repository": {
       "type": "git",
-      "url": "https://github.com/your-org/artifact-hub-collection",
+      "url": "__CATALOG_URL__",
       "branch": "main"
     },
     "license": "MIT",
-    "homepage": "https://your-org.github.io/artifact-hub-collection",
+    "homepage": "__CATALOG_URL__",
     "tags": [
       "example",
       "demo",
