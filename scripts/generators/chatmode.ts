@@ -58,7 +58,6 @@ async function generateChatmode(): Promise<void> {
     type: 'chatmode',
     name: args.name,
     description: args.description,
-    category: args.category,
     tags: args.tags,
     author: args.author,
   });
@@ -67,14 +66,13 @@ async function generateChatmode(): Promise<void> {
     name: data.name,
     description: data.description,
     type: 'chatmode',
-    category: data.category,
     tags: data.tags,
     author: data.author,
   });
 
   const content = CHATMODE_TEMPLATE.replace(/{{NAME}}/g, data.name)
     .replace(/{{DESCRIPTION}}/g, data.description)
-    .replace(/{{CATEGORY}}/g, data.category)
+    .replace(/{{CATEGORY}}/g, data.tags[0] ?? 'general')
     .replace(/{{DATE}}/g, new Date().toISOString().split('T')[0] || '')
     .replace(/{{VERSION}}/g, entry.version);
 

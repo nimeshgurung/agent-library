@@ -89,7 +89,7 @@ Both pipelines:
 
 3. **Generate artifacts**
    ```bash
-   npm run generate:chatmode -- --name "Internal API Helper" --category "Development"
+   npm run generate:chatmode -- --name "Internal API Helper" --tags "internal,development"
    ```
 
 4. **Enrich content**

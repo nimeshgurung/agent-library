@@ -13,7 +13,7 @@ npm run generate:task
 ### Arguments
 All generators support non-interactive flags:
 ```bash
-npm run generate:chatmode -- --name "My Chatmode" --category "Dev" --tags "typescript,testing" --author "Your Name" --description "Short summary"
+npm run generate:chatmode -- --name "My Chatmode" --tags "dev,typescript,testing" --author "Your Name" --description "Short summary"
 ```
 
 ## List artifacts

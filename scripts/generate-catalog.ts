@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
+import { resolve, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import {
   ArtifactsIndexSchema,
@@ -14,6 +14,49 @@ import {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
+
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = []) {
+  const files = readdirSync(dirPath);
+
+  files.forEach(function (file) {
+    if (file === '.DS_Store' || file === '.git') return;
+
+    const fullPath = join(dirPath, file);
+    if (statSync(fullPath).isDirectory()) {
+      getAllFiles(fullPath, arrayOfFiles);
+    } else {
+      arrayOfFiles.push(fullPath);
+    }
+  });
+
+  return arrayOfFiles;
+}
+
+function updateArtifactSupportingFiles(entry: IndexEntry): IndexEntry {
+  const artifactDir = resolve(projectRoot, 'artifacts', entry.slug);
+
+  try {
+    // Scan for all files in the artifact directory
+    const allFiles = getAllFiles(artifactDir);
+    const relativeFiles = allFiles.map(f => relative(resolve(projectRoot, 'artifacts'), f));
+
+    // Filter out metadata.json and the main content file (README)
+    // Also filter out hidden system files if any remain
+    const supportingFiles = relativeFiles.filter(f => {
+      const isMetadata = f === entry.paths.metadata;
+      const isContent = f === entry.paths.content;
+      return !isMetadata && !isContent;
+    });
+
+    return {
+      ...entry,
+      supportingFiles
+    };
+  } catch (error) {
+    console.warn(`Warning: Could not scan artifact directory for ${entry.id}:`, error);
+    return entry;
+  }
+}
 
 function transformToCatalogArtifact(entry: IndexEntry): CatalogArtifact {
   // Ensure paths are relative to the catalog root (which is artifacts/)
@@ -59,12 +102,43 @@ function generateCatalog(): void {
 
   console.log(`✅ Found ${String(index.artifacts.length)} artifacts`);
 
+  // Remove orphaned entries (where artifact folder no longer exists on disk)
+  const validArtifacts = index.artifacts.filter((entry) => {
+    const artifactDir = resolve(projectRoot, 'artifacts', entry.slug);
+    try {
+      statSync(artifactDir);
+      return true; // Directory exists
+    } catch {
+      console.warn(`⚠️  Removing orphaned entry: ${entry.id} (directory ${entry.slug} not found)`);
+      return false; // Directory missing
+    }
+  });
+
+  if (validArtifacts.length < index.artifacts.length) {
+    console.log(`🧹 Cleaned up ${index.artifacts.length - validArtifacts.length} orphaned entries`);
+  }
+
+  // Pre-process artifacts to update bundle supporting files from disk
+  // This supports manual copy-paste workflows
+  const processedArtifacts = validArtifacts.map(updateArtifactSupportingFiles);
+
+  // If anything changed (length of supportingFiles differs), we could update index.json
+  // For now, we'll just generate the catalog with the fresh file list.
+  // Optionally, we could write back to index.json to keep it in sync.
+  // Let's write back to index.json to ensure it's a source of truth
+  const hasChanges = JSON.stringify(processedArtifacts) !== JSON.stringify(index.artifacts);
+  if (hasChanges) {
+      console.log('🔄 Detected changes in artifact files, updating index.json...');
+      const newIndex = { ...index, artifacts: processedArtifacts };
+      writeFileSync(indexPath, JSON.stringify(newIndex, null, 2) + '\n', 'utf-8');
+  }
+
   // Transform all artifacts to catalog format
-  const artifacts = index.artifacts.map(transformToCatalogArtifact);
+  const artifacts = processedArtifacts.map(transformToCatalogArtifact);
 
   // Extract unique categories and tags
-  const categories = [...new Set(index.artifacts.map((a) => a.category))];
-  const allTags = [...new Set(index.artifacts.flatMap((a) => a.tags))];
+  const categories = [...new Set(processedArtifacts.map((a) => a.category))];
+  const allTags = [...new Set(processedArtifacts.flatMap((a) => a.tags))];
 
   // Use placeholders that the extension can replace at runtime, or the user can replace with env vars if they want.
   const authorName = process.env['CATALOG_AUTHOR'] || 'Artifact Hub Collection';
@@ -142,4 +216,3 @@ try {
   console.error('❌ Error generating catalog:', error);
   process.exit(1);
 }
-

@@ -76,7 +76,6 @@ async function generatePrompt(): Promise<void> {
     type: 'prompt',
     name: args.name,
     description: args.description,
-    category: args.category,
     tags: args.tags,
     author: args.author,
   });
@@ -85,7 +84,6 @@ async function generatePrompt(): Promise<void> {
     name: data.name,
     description: data.description,
     type: 'prompt',
-    category: data.category,
     tags: data.tags,
     author: data.author,
   });
@@ -96,7 +94,7 @@ Be specific about what the AI should do.`;
 
   const content = PROMPT_TEMPLATE.replace(/{{NAME}}/g, data.name)
     .replace(/{{DESCRIPTION}}/g, data.description)
-    .replace(/{{CATEGORY}}/g, data.category)
+    .replace(/{{CATEGORY}}/g, data.tags[0] ?? 'general')
     .replace(/{{PROMPT_CONTENT}}/g, promptContent)
     .replace(/{{DATE}}/g, new Date().toISOString().split('T')[0] || '')
     .replace(/{{VERSION}}/g, entry.version);

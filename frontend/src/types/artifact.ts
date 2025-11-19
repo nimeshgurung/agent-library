@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Artifact type enum
-export const artifactTypeSchema = z.enum(['chatmode', 'prompt', 'instructions', 'task']);
+export const artifactTypeSchema = z.enum(['chatmode', 'prompt', 'instructions', 'task', 'bundle']);
 
 export const categorySchema = z.string();
 

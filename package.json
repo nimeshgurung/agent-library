@@ -10,6 +10,7 @@
     "generate:prompt": "tsx scripts/generators/prompt.ts",
     "generate:instructions": "tsx scripts/generators/instructions.ts",
     "generate:task": "tsx scripts/generators/task.ts",
+    "generate:bundle": "tsx scripts/generators/bundle.ts",
     "generate:catalog": "tsx scripts/generate-catalog.ts",
     "list:artifacts": "tsx scripts/list-artifacts.ts",
     "delete:artifact": "tsx scripts/delete-artifact.ts",

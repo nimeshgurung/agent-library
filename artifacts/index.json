@@ -20,6 +20,7 @@
         "metadata": "chatmodes/example-chatmode/metadata.json",
         "content": "chatmodes/example-chatmode/example-chatmode.chatmode.md"
       },
+      "supportingFiles": [],
       "slug": "chatmodes/example-chatmode"
     },
     {
@@ -43,6 +44,7 @@
         "metadata": "instructions/example-instructions/metadata.json",
         "content": "instructions/example-instructions/example-instructions.instructions.md"
       },
+      "supportingFiles": [],
       "slug": "instructions/example-instructions"
     },
     {
@@ -66,6 +68,7 @@
         "metadata": "tasks/example-task/metadata.json",
         "content": "tasks/example-task/example-task.task.md"
       },
+      "supportingFiles": [],
       "slug": "tasks/example-task"
     },
     {
@@ -89,7 +92,60 @@
         "metadata": "prompts/example-prompt/metadata.json",
         "content": "prompts/example-prompt/example-prompt.prompt.md"
       },
+      "supportingFiles": [],
       "slug": "prompts/example-prompt"
+    },
+    {
+      "id": "spec-kit",
+      "name": "spec-kit",
+      "description": "Spec driver development",
+      "type": "bundle",
+      "category": "Development",
+      "tags": [
+        "Development",
+        "TDD"
+      ],
+      "version": "1.0.0",
+      "createdAt": "2025-11-19T12:57:06.524Z",
+      "updatedAt": "2025-11-19T12:57:06.524Z",
+      "paths": {
+        "metadata": "bundles/spec-kit/metadata.json",
+        "content": "bundles/spec-kit/README.md"
+      },
+      "supportingFiles": [
+        "bundles/spec-kit/resources/.github/agents/speckit.analyze.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.checklist.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.clarify.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.constitution.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.implement.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.plan.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.specify.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.tasks.agent.md",
+        "bundles/spec-kit/resources/.github/agents/speckit.taskstoissues.agent.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.analyze.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.checklist.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.clarify.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.constitution.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.implement.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.plan.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.specify.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.tasks.prompt.md",
+        "bundles/spec-kit/resources/.github/prompts/speckit.taskstoissues.prompt.md",
+        "bundles/spec-kit/resources/.specify/memory/constitution.md",
+        "bundles/spec-kit/resources/.specify/scripts/bash/check-prerequisites.sh",
+        "bundles/spec-kit/resources/.specify/scripts/bash/common.sh",
+        "bundles/spec-kit/resources/.specify/scripts/bash/create-new-feature.sh",
+        "bundles/spec-kit/resources/.specify/scripts/bash/setup-plan.sh",
+        "bundles/spec-kit/resources/.specify/scripts/bash/update-agent-context.sh",
+        "bundles/spec-kit/resources/.specify/templates/agent-file-template.md",
+        "bundles/spec-kit/resources/.specify/templates/checklist-template.md",
+        "bundles/spec-kit/resources/.specify/templates/plan-template.md",
+        "bundles/spec-kit/resources/.specify/templates/spec-template.md",
+        "bundles/spec-kit/resources/.specify/templates/tasks-template.md",
+        "bundles/spec-kit/resources/.vscode/settings.json",
+        "bundles/spec-kit/resources/README.resources.md"
+      ],
+      "slug": "bundles/spec-kit"
     }
   ]
 }

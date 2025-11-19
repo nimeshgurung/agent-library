@@ -21,6 +21,7 @@ npm run generate:chatmode
 npm run generate:prompt
 npm run generate:instructions
 npm run generate:task
+npm run generate:bundle   # directory-style bundles of multiple artifacts/resources
 
 # 3) Build catalog + frontend
 npm run build
@@ -66,6 +67,7 @@ agent-library/
 │   ├── prompts/
 │   ├── instructions/
 │   ├── tasks/
+│   ├── bundles/           # Directory-based bundles (multi-artifact kits)
 │   └── index.json         # Unified index (generated)
 ├── frontend/               # Vite + React catalog UI
 │   ├── public/
@@ -86,6 +88,7 @@ Generators:
 - `npm run generate:prompt`
 - `npm run generate:instructions`
 - `npm run generate:task`
+- `npm run generate:bundle`        # scaffold a directory-style bundle under artifacts/bundles/
 
 Management:
 - `npm run list:artifacts`
@@ -129,6 +132,18 @@ artifacts/tasks/{slug}/
 ├── {slug}.task.md
 └── metadata.json
 ```
+
+Bundle
+```
+artifacts/bundles/{slug}/
+├── README.md                 # primary entrypoint shown in Agent Hub
+├── .github/agents/...        # optional agent definitions
+├── .github/prompts/...       # optional prompts
+├── .vscode/settings.json     # optional workspace settings (applied at install)
+└── any other files/folders   # arbitrary resources/templates/scripts
+```
+
+All **additional files** inside `artifacts/*/{slug}/` are auto-discovered when you run `npm run generate:catalog` and surfaced as `supportingFiles` in `copilot-catalog.json`, so Agent Hub can download the full structure without extra wiring.
 
 ## CI/CD
 

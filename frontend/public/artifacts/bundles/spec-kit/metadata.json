@@ -1,0 +1,19 @@
+{
+  "id": "spec-kit",
+  "name": "spec-kit",
+  "description": "Spec driver development",
+  "type": "bundle",
+  "category": "Development",
+  "tags": [
+    "Development",
+    "TDD"
+  ],
+  "version": "1.0.0",
+  "createdAt": "2025-11-19T12:57:06.524Z",
+  "updatedAt": "2025-11-19T12:57:06.524Z",
+  "supportingFiles": [
+    "bundles/spec-kit/resources/.github/agents/default.agent.md",
+    "bundles/spec-kit/resources/.github/prompts/default.prompt.md",
+    "bundles/spec-kit/resources/README.resources.md"
+  ]
+}

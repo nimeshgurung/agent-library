@@ -27,7 +27,9 @@
       "ci-cd",
       "api",
       "design",
-      "template"
+      "template",
+      "Development",
+      "TDD"
     ],
     "categories": [
       "Examples",
@@ -141,6 +143,61 @@
         "createdAt": "2025-11-18T11:04:54.682Z",
         "updatedAt": "2025-11-18T11:04:54.682Z",
         "slug": "prompts/example-prompt"
+      }
+    },
+    {
+      "id": "spec-kit",
+      "type": "bundle",
+      "name": "spec-kit",
+      "description": "Spec driver development",
+      "path": "artifacts/bundles/spec-kit/README.md",
+      "version": "1.0.0",
+      "category": "Development",
+      "tags": [
+        "Development",
+        "TDD"
+      ],
+      "keywords": [
+        "Development",
+        "TDD"
+      ],
+      "supportingFiles": [
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.analyze.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.checklist.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.clarify.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.constitution.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.implement.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.plan.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.specify.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.tasks.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/agents/speckit.taskstoissues.agent.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.analyze.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.checklist.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.clarify.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.constitution.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.implement.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.plan.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.specify.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.tasks.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.github/prompts/speckit.taskstoissues.prompt.md",
+        "artifacts/bundles/spec-kit/resources/.specify/memory/constitution.md",
+        "artifacts/bundles/spec-kit/resources/.specify/scripts/bash/check-prerequisites.sh",
+        "artifacts/bundles/spec-kit/resources/.specify/scripts/bash/common.sh",
+        "artifacts/bundles/spec-kit/resources/.specify/scripts/bash/create-new-feature.sh",
+        "artifacts/bundles/spec-kit/resources/.specify/scripts/bash/setup-plan.sh",
+        "artifacts/bundles/spec-kit/resources/.specify/scripts/bash/update-agent-context.sh",
+        "artifacts/bundles/spec-kit/resources/.specify/templates/agent-file-template.md",
+        "artifacts/bundles/spec-kit/resources/.specify/templates/checklist-template.md",
+        "artifacts/bundles/spec-kit/resources/.specify/templates/plan-template.md",
+        "artifacts/bundles/spec-kit/resources/.specify/templates/spec-template.md",
+        "artifacts/bundles/spec-kit/resources/.specify/templates/tasks-template.md",
+        "artifacts/bundles/spec-kit/resources/.vscode/settings.json",
+        "artifacts/bundles/spec-kit/resources/README.resources.md"
+      ],
+      "metadata": {
+        "createdAt": "2025-11-19T12:57:06.524Z",
+        "updatedAt": "2025-11-19T12:57:06.524Z",
+        "slug": "bundles/spec-kit"
       }
     }
   ]

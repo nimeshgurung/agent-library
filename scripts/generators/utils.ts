@@ -41,22 +41,30 @@ export function createArtifactEntry(params: {
   name: string;
   description: string;
   type: ArtifactType;
-  category: string;
   tags: string[];
   author?: Author | undefined;
   version?: string | undefined;
+  supportingFiles?: string[] | undefined;
 }): IndexEntry {
   const slug = slugify(params.name);
   const now = new Date().toISOString();
-  const contentExtension = params.type === 'chatmode' ? 'chatmode.md' : `${params.type}.md`;
   const folder = getPluralFolder(params.type);
+  const category = params.tags[0] ?? 'general';
+
+  let contentPath: string;
+  if (params.type === 'bundle') {
+    contentPath = `${folder}/${slug}/README.md`;
+  } else {
+    const contentExtension = params.type === 'chatmode' ? 'chatmode.md' : `${params.type}.md`;
+    contentPath = `${folder}/${slug}/${slug}.${contentExtension}`;
+  }
 
   return {
     id: slug,
     name: params.name,
     description: params.description,
     type: params.type,
-    category: params.category,
+    category,
     tags: params.tags,
     version: params.version || '1.0.0',
     author: params.author,
@@ -64,9 +72,10 @@ export function createArtifactEntry(params: {
     updatedAt: now,
     paths: {
       metadata: `${folder}/${slug}/metadata.json`,
-      content: `${folder}/${slug}/${slug}.${contentExtension}`,
+      content: contentPath,
     },
     slug: `${folder}/${slug}`,
+    supportingFiles: params.supportingFiles,
   };
 }
 
@@ -93,6 +102,7 @@ export function createArtifactFiles(params: {
     author: params.entry.author,
     createdAt: params.entry.createdAt,
     updatedAt: params.entry.updatedAt,
+    supportingFiles: params.entry.supportingFiles,
   };
   const metadataPath = join(projectRoot, 'artifacts', params.entry.paths.metadata);
   writeFileSync(metadataPath, JSON.stringify(metadata, null, 2) + '\n', 'utf-8');
@@ -100,6 +110,30 @@ export function createArtifactFiles(params: {
   // Write content file
   const contentPath = join(projectRoot, 'artifacts', params.entry.paths.content);
   writeFileSync(contentPath, params.contentTemplate, 'utf-8');
+}
+
+export function createBundleFiles(params: {
+  entry: IndexEntry;
+  contentTemplate: string;
+  files: Record<string, string>; // relative path -> content
+}): void {
+  // First create the standard files (metadata and main content/README)
+  createArtifactFiles({
+    entry: params.entry,
+    contentTemplate: params.contentTemplate
+  });
+
+  const artifactDir = join(projectRoot, 'artifacts', params.entry.slug);
+
+  // Create additional bundle files
+  for (const [relPath, content] of Object.entries(params.files)) {
+    const fullPath = join(artifactDir, relPath);
+    const dir = dirname(fullPath);
+    if (!existsSync(dir)) {
+      mkdirSync(dir, { recursive: true });
+    }
+    writeFileSync(fullPath, content, 'utf-8');
+  }
 }
 
 export function addToIndex(entry: IndexEntry): void {
@@ -120,14 +154,12 @@ export function parseArgs(
 ): {
   name?: string | undefined;
   description?: string | undefined;
-  category?: string | undefined;
   tags?: string[] | undefined;
   author?: string | undefined;
 } {
   const parsed: {
     name?: string | undefined;
     description?: string | undefined;
-    category?: string | undefined;
     tags?: string[] | undefined;
     author?: string | undefined;
   } = {};
@@ -140,9 +172,6 @@ export function parseArgs(
       i++;
     } else if (arg === '--description' && nextArg) {
       parsed.description = nextArg;
-      i++;
-    } else if (arg === '--category' && nextArg) {
-      parsed.category = nextArg;
       i++;
     } else if (arg === '--tags' && nextArg) {
       parsed.tags = nextArg.split(',').map((t) => t.trim());
@@ -169,35 +198,30 @@ export async function interactivePrompt(params: {
   type: ArtifactType;
   name?: string | undefined;
   description?: string | undefined;
-  category?: string | undefined;
   tags?: string[] | undefined;
   author?: string | undefined;
 }): Promise<{
   name: string;
   description: string;
-  category: string;
   tags: string[];
   author?: Author | undefined;
 }> {
   const name = params.name ?? (await prompt(`${params.type} name: `));
   const description = params.description ?? (await prompt('Description: '));
-  const category = params.category ?? (await prompt('Category: '));
   const tagsInput =
     params.tags?.join(', ') ??
-    ((await prompt('Tags (comma-separated): ')) || category);
+    (await prompt('Tags (comma-separated): '));
   const tags = tagsInput.split(',').map((t) => t.trim());
   const authorName = params.author ?? (await prompt('Author name (optional): '));
 
   const result: {
     name: string;
     description: string;
-    category: string;
     tags: string[];
     author?: Author | undefined;
   } = {
     name,
     description,
-    category,
     tags,
   };
 
@@ -207,4 +231,3 @@ export async function interactivePrompt(params: {
 
   return result;
 }
-

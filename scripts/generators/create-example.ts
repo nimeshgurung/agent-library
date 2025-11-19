@@ -11,7 +11,6 @@ const chatmodeEntry = createArtifactEntry({
   name: 'Example Chatmode',
   description: 'A sample chatmode to demonstrate the artifact structure',
   type: 'chatmode',
-  category: 'Examples',
   tags: ['example', 'demo'],
   author: { name: 'Artifact Hub' },
 });
