@@ -14,10 +14,10 @@ Define the main goal of this task...
 
 List what inputs are required:
 
-| Input | Type | Description | Required |
-|-------|------|-------------|----------|
-| input1 | string | Description | Yes |
-| input2 | number | Description | No |
+| Input  | Type   | Description | Required |
+| ------ | ------ | ----------- | -------- |
+| input1 | string | Description | Yes      |
+| input2 | number | Description | No       |
 
 ## Process
 
@@ -43,8 +43,8 @@ List what inputs are required:
 
 Describe what the task should produce:
 
-| Output | Type | Description |
-|--------|------|-------------|
+| Output  | Type | Description |
+| ------- | ---- | ----------- |
 | output1 | file | Description |
 | output2 | data | Description |
 
@@ -61,15 +61,18 @@ Define what success looks like:
 ### Example 1: Basic Task Execution
 
 **Input:**
+
 ```
 Sample input data
 ```
 
 **Process:**
+
 1. Process step 1
 2. Process step 2
 
 **Output:**
+
 ```
 Expected output
 ```
@@ -77,15 +80,18 @@ Expected output
 ### Example 2: Advanced Task Execution
 
 **Input:**
+
 ```
 More complex input
 ```
 
 **Process:**
+
 1. Advanced step 1
 2. Advanced step 2
 
 **Output:**
+
 ```
 Expected advanced output
 ```
@@ -116,5 +122,5 @@ Additional information:
 
 ---
 
-*Created: 2025-11-18*
-*Version: 1.0.0*
+_Created: 2025-11-18_
+_Version: 1.0.0_

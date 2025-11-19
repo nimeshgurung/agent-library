@@ -104,4 +104,3 @@ generateChatmode()
     }
     process.exit(1);
   });
-

@@ -8,7 +8,7 @@ Your pipeline should: (1) install deps, (2) run lint/typecheck, (3) build catalo
 name: build-and-deploy
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -82,8 +82,7 @@ pages:
 ```
 
 ## Notes
+
 - Ensure `copilot-catalog.json` is generated before publishing the frontend.
 - Use immutable builds; avoid mutating `artifacts/index.json` during deploy.
 - For private catalogs, wire secrets for tokens in the pipeline (see docs/private-catalogs.md).
-
-

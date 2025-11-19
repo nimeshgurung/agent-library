@@ -146,4 +146,3 @@ generateInstructions()
     }
     process.exit(1);
   });
-

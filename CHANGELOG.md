@@ -38,4 +38,3 @@ The term "agent pack" better reflects the nature of these artifacts: they are co
 ## [1.0.0] - 2024-11-18
 
 - Initial release with bundle support
-

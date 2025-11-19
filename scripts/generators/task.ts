@@ -186,4 +186,3 @@ generateTask()
     }
     process.exit(1);
   });
-

@@ -94,4 +94,3 @@ export function useArtifactsData(): UseArtifactsDataResult {
 
   return { artifacts, tagIndex, loading, error, refresh };
 }
-

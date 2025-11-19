@@ -64,6 +64,7 @@ npm run sync
 - `.github/workflows/deploy.yml` - GitHub Actions deployment
 
 Both pipelines:
+
 1. Install dependencies
 2. Lint & typecheck
 3. Generate catalog
@@ -79,6 +80,7 @@ Both pipelines:
 ## Workflow for Enterprise Teams
 
 1. **Fork the repository**
+
    ```bash
    git clone https://github.com/your-org/artifact-hub-collection.git
    ```
@@ -88,6 +90,7 @@ Both pipelines:
    - Update organization name, URLs, etc.
 
 3. **Generate artifacts**
+
    ```bash
    npm run generate:chatmode -- --name "Internal API Helper" --tags "internal,development"
    ```
@@ -97,6 +100,7 @@ Both pipelines:
    - Add your organization-specific knowledge
 
 5. **Push to deploy**
+
    ```bash
    git add .
    git commit -m "Add internal chatmodes"
@@ -128,6 +132,7 @@ Edit the `*_TEMPLATE` constants in `scripts/generators/*.ts` to match your style
 ### Catalog Metadata
 
 In `scripts/generate-catalog.ts`, update:
+
 - `catalog.id`
 - `catalog.name`
 - `catalog.description`
@@ -144,6 +149,7 @@ Modify `frontend/src/styles.css` and components in `frontend/src/components/`.
 ### Generators not working
 
 Ensure you're using `npx tsx` or install tsx globally:
+
 ```bash
 npm install -g tsx
 ```
@@ -171,4 +177,3 @@ Check `artifacts/index.json` format matches the schema in `schema/types.ts`.
 - See `README.md` for full documentation
 - Check `schema/types.ts` for TypeScript types
 - Review example in `artifacts/chatmodes/example-chatmode/` after running `create-example.ts`
-

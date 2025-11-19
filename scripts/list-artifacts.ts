@@ -66,4 +66,3 @@ try {
   console.error('❌ Error listing artifacts:', error);
   process.exit(1);
 }
-

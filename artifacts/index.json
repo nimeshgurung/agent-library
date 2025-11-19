@@ -6,10 +6,7 @@
       "description": "A sample chatmode to demonstrate the artifact structure",
       "type": "chatmode",
       "category": "Examples",
-      "tags": [
-        "example",
-        "demo"
-      ],
+      "tags": ["example", "demo"],
       "version": "1.0.0",
       "author": {
         "name": "Artifact Hub"
@@ -29,11 +26,7 @@
       "description": "Step-by-step guide for common workflows",
       "type": "instructions",
       "category": "Documentation",
-      "tags": [
-        "documentation",
-        "guide",
-        "tutorial"
-      ],
+      "tags": ["documentation", "guide", "tutorial"],
       "version": "1.0.0",
       "author": {
         "name": "Artifact Hub Team"
@@ -53,11 +46,7 @@
       "description": "A sample task definition for deployment workflows",
       "type": "task",
       "category": "DevOps",
-      "tags": [
-        "deployment",
-        "automation",
-        "ci-cd"
-      ],
+      "tags": ["deployment", "automation", "ci-cd"],
       "version": "1.0.0",
       "author": {
         "name": "Artifact Hub Team"
@@ -77,11 +66,7 @@
       "description": "A sample prompt template for API design",
       "type": "prompt",
       "category": "Development",
-      "tags": [
-        "api",
-        "design",
-        "template"
-      ],
+      "tags": ["api", "design", "template"],
       "version": "1.0.0",
       "author": {
         "name": "Artifact Hub Team"
@@ -101,10 +86,7 @@
       "description": "Spec driver development",
       "type": "agent",
       "category": "Development",
-      "tags": [
-        "Development",
-        "TDD"
-      ],
+      "tags": ["Development", "TDD"],
       "version": "1.0.0",
       "createdAt": "2025-11-19T12:57:06.524Z",
       "updatedAt": "2025-11-19T12:57:06.524Z",

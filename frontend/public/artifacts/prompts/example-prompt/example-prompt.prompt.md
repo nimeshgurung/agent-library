@@ -26,11 +26,13 @@ List any variables that should be replaced:
 ### Example 1: Basic Usage
 
 **Input:**
+
 ```
 Replace variables with actual values
 ```
 
 **Expected Output:**
+
 ```
 Describe what the AI should produce
 ```
@@ -38,11 +40,13 @@ Describe what the AI should produce
 ### Example 2: Advanced Usage
 
 **Input:**
+
 ```
 More complex example
 ```
 
 **Expected Output:**
+
 ```
 Expected advanced results
 ```
@@ -55,5 +59,5 @@ Expected advanced results
 
 ---
 
-*Created: 2025-11-18*
-*Version: 1.0.0*
+_Created: 2025-11-18_
+_Version: 1.0.0_

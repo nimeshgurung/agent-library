@@ -67,9 +67,7 @@ Your goal is to help the user with their tasks.
   agentFiles['resources/.github/prompts/default.prompt.md'] = promptContent;
 
   // 4. Calculate supporting files paths (relative to artifacts/ root)
-  const supportingFiles = Object.keys(agentFiles).map(
-    (relPath) => `${agentRoot}/${relPath}`
-  );
+  const supportingFiles = Object.keys(agentFiles).map((relPath) => `${agentRoot}/${relPath}`);
 
   // 5. Create artifact entry
   const entry = createArtifactEntry({
@@ -112,4 +110,3 @@ generateAgent()
     }
     process.exit(1);
   });
-

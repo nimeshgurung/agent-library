@@ -12,6 +12,8 @@ Marketplace page for the extension: `https://marketplace.visualstudio.com/items?
 
 ## TL;DR Quickstart
 
+**Live Example:** [https://nimeshgurung.github.io/agent-library/](https://nimeshgurung.github.io/agent-library/)
+
 ```bash
 # 1) Install deps (root + frontend)
 npm run bootstrap
@@ -49,6 +51,16 @@ See “Extension Integration” for more options (GitHub/GitLab raw URLs, auth).
 
 ## How Agent Library + Agent Hub fit together
 
+```mermaid
+flowchart LR
+    Library["Agent Library<br/>(Create & Publish)"]
+    Hub["Agent Hub<br/>(Discover & Install)"]
+    Copilot["GitHub Copilot<br/>(Consume & Run)"]
+
+    Library -- 1. Generates Catalog --> Hub
+    Hub -- 2. Installs Artifacts --> Copilot
+```
+
 - Agent Library helps you scaffold, validate, and publish your artifacts along with a React catalog site.
 - The Agent Hub VS Code extension lets your team search and install artifacts from your catalog(s) directly in VS Code.
 - You can host the catalog via:
@@ -84,17 +96,20 @@ agent-library/
 ## Commands
 
 Generators:
+
 - `npm run generate:chatmode`
 - `npm run generate:prompt`
 - `npm run generate:instructions`
 - `npm run generate:task`
-- `npm run generate:agent`        # scaffold a directory-style agent pack under artifacts/agents/
+- `npm run generate:agent` # scaffold a directory-style agent pack under artifacts/agents/
 
 Management:
+
 - `npm run list:artifacts`
 - `npm run delete:artifact -- --id <artifact-id> [--yes]`
 
 Build + Dev:
+
 - `npm run generate:catalog`
 - `npm run sync`
 - `npm run build`
@@ -106,6 +121,7 @@ Build + Dev:
 ## Artifact Types
 
 Chatmode
+
 ```
 artifacts/chatmodes/{slug}/
 ├── {slug}.chatmode.md
@@ -113,6 +129,7 @@ artifacts/chatmodes/{slug}/
 ```
 
 Prompt
+
 ```
 artifacts/prompts/{slug}/
 ├── {slug}.prompt.md
@@ -120,6 +137,7 @@ artifacts/prompts/{slug}/
 ```
 
 Instructions
+
 ```
 artifacts/instructions/{slug}/
 ├── {slug}.instructions.md
@@ -127,6 +145,7 @@ artifacts/instructions/{slug}/
 ```
 
 Task
+
 ```
 artifacts/tasks/{slug}/
 ├── {slug}.task.md
@@ -134,6 +153,7 @@ artifacts/tasks/{slug}/
 ```
 
 Agent Pack
+
 ```
 artifacts/agents/{slug}/
 ├── README.md                 # primary entrypoint shown in Agent Hub
@@ -150,7 +170,8 @@ All **additional files** inside `artifacts/*/{slug}/` are auto-discovered when y
 ## CI/CD
 
 We include pipelines for GitHub Actions and GitLab CI that:
-1) Generate the catalog, 2) Build the frontend, 3) Publish Pages.
+
+1. Generate the catalog, 2) Build the frontend, 3) Publish Pages.
 
 - GitHub Pages: `https://<your-org>.github.io/<repo>`
 - GitLab Pages: `https://<your-org>.gitlab.io/<repo>`
@@ -169,6 +190,7 @@ See docs/ci-cd.md for complete examples and configuration.
 - docs/troubleshooting.md — common errors and fixes
 
 ## Screenshots (placeholders)
+
 - Catalog grid (docs/images/catalog-grid.png)
 - Artifact detail (docs/images/artifact-detail.png)
 - VS Code settings snippet (docs/images/settings-json.png)
@@ -181,4 +203,3 @@ MIT
 
 - Marketplace (Agent Hub extension): `https://marketplace.visualstudio.com/items?itemName=nimsbhai.agent-hub`
 - Agent Hub repo docs: `https://github.com/artifact-hub/artifact-hub`
-

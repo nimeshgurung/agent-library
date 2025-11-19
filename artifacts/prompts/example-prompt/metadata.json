@@ -4,11 +4,7 @@
   "description": "A sample prompt template for API design",
   "type": "prompt",
   "category": "Development",
-  "tags": [
-    "api",
-    "design",
-    "template"
-  ],
+  "tags": ["api", "design", "template"],
   "version": "1.0.0",
   "author": {
     "name": "Artifact Hub Team"

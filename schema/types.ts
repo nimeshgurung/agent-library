@@ -101,4 +101,3 @@ export const ArtifactsIndexSchema = z.object({
   artifacts: z.array(IndexEntrySchema),
 });
 export type ArtifactsIndex = z.infer<typeof ArtifactsIndexSchema>;
-

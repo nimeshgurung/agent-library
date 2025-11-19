@@ -31,12 +31,7 @@
       "Development",
       "TDD"
     ],
-    "categories": [
-      "Examples",
-      "Documentation",
-      "DevOps",
-      "Development"
-    ]
+    "categories": ["Examples", "Documentation", "DevOps", "Development"]
   },
   "artifacts": [
     {
@@ -47,14 +42,8 @@
       "path": "artifacts/chatmodes/example-chatmode/example-chatmode.chatmode.md",
       "version": "1.0.0",
       "category": "Examples",
-      "tags": [
-        "example",
-        "demo"
-      ],
-      "keywords": [
-        "example",
-        "demo"
-      ],
+      "tags": ["example", "demo"],
+      "keywords": ["example", "demo"],
       "author": {
         "name": "Artifact Hub"
       },
@@ -72,16 +61,8 @@
       "path": "artifacts/instructions/example-instructions/example-instructions.instructions.md",
       "version": "1.0.0",
       "category": "Documentation",
-      "tags": [
-        "documentation",
-        "guide",
-        "tutorial"
-      ],
-      "keywords": [
-        "documentation",
-        "guide",
-        "tutorial"
-      ],
+      "tags": ["documentation", "guide", "tutorial"],
+      "keywords": ["documentation", "guide", "tutorial"],
       "author": {
         "name": "Artifact Hub Team"
       },
@@ -99,16 +80,8 @@
       "path": "artifacts/tasks/example-task/example-task.task.md",
       "version": "1.0.0",
       "category": "DevOps",
-      "tags": [
-        "deployment",
-        "automation",
-        "ci-cd"
-      ],
-      "keywords": [
-        "deployment",
-        "automation",
-        "ci-cd"
-      ],
+      "tags": ["deployment", "automation", "ci-cd"],
+      "keywords": ["deployment", "automation", "ci-cd"],
       "author": {
         "name": "Artifact Hub Team"
       },
@@ -126,16 +99,8 @@
       "path": "artifacts/prompts/example-prompt/example-prompt.prompt.md",
       "version": "1.0.0",
       "category": "Development",
-      "tags": [
-        "api",
-        "design",
-        "template"
-      ],
-      "keywords": [
-        "api",
-        "design",
-        "template"
-      ],
+      "tags": ["api", "design", "template"],
+      "keywords": ["api", "design", "template"],
       "author": {
         "name": "Artifact Hub Team"
       },
@@ -153,14 +118,8 @@
       "path": "artifacts/agents/spec-kit/README.md",
       "version": "1.0.0",
       "category": "Development",
-      "tags": [
-        "Development",
-        "TDD"
-      ],
-      "keywords": [
-        "Development",
-        "TDD"
-      ],
+      "tags": ["Development", "TDD"],
+      "keywords": ["Development", "TDD"],
       "supportingFiles": [
         "artifacts/agents/spec-kit/resources/.github/agents/speckit.analyze.agent.md",
         "artifacts/agents/spec-kit/resources/.github/agents/speckit.checklist.agent.md",

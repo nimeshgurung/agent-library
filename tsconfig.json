@@ -13,4 +13,3 @@
   "include": ["scripts/**/*", "schema/**/*"],
   "exclude": ["node_modules", "dist", "frontend"]
 }
-

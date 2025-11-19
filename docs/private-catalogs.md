@@ -3,11 +3,13 @@
 You can serve `copilot-catalog.json` from private GitHub/GitLab or internal endpoints. The Agent Hub extension supports tokens.
 
 ## Options
+
 - Personal Access Token (GitHub/GitLab) with `read_repository` scope
 - Bearer token for custom gateways
 - Environment variables in VS Code settings
 
 ## Settings with environment variables
+
 ```json
 {
   "agentHub.repositories": [
@@ -24,8 +26,7 @@ You can serve `copilot-catalog.json` from private GitHub/GitLab or internal endp
 ```
 
 ## Notes
+
 - Avoid committing tokens; prefer environment variables.
 - For self-hosted gateways, allow CORS for the frontend and VS Code environment as needed.
 - Rotate tokens regularly; monitor access logs.
-
-

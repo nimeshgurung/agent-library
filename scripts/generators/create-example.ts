@@ -1,10 +1,6 @@
 #!/usr/bin/env tsx
 
-import {
-  createArtifactEntry,
-  createArtifactFiles,
-  addToIndex,
-} from './utils.js';
+import { createArtifactEntry, createArtifactFiles, addToIndex } from './utils.js';
 
 // Create a sample chatmode
 const chatmodeEntry = createArtifactEntry({
@@ -53,4 +49,3 @@ addToIndex(chatmodeEntry);
 
 console.log('✅ Example chatmode created!');
 console.log(`📁 Location: artifacts/${chatmodeEntry.slug}`);
-

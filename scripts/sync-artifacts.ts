@@ -31,9 +31,7 @@ async function syncArtifacts(): Promise<void> {
     process.stdout.write('📋 Copied copilot-catalog.json to frontend/public/\n');
   } catch {
     // Catalog might not exist yet, that's okay
-    process.stdout.write(
-      '⚠️  copilot-catalog.json not found (run generate:catalog first)\n',
-    );
+    process.stdout.write('⚠️  copilot-catalog.json not found (run generate:catalog first)\n');
   }
 
   process.stdout.write('✅ Artifacts synced successfully!\n');
@@ -47,4 +45,3 @@ syncArtifacts().catch((error: unknown) => {
   }
   process.exit(1);
 });
-

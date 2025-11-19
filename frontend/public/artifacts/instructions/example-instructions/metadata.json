@@ -4,11 +4,7 @@
   "description": "Step-by-step guide for common workflows",
   "type": "instructions",
   "category": "Documentation",
-  "tags": [
-    "documentation",
-    "guide",
-    "tutorial"
-  ],
+  "tags": ["documentation", "guide", "tutorial"],
   "version": "1.0.0",
   "author": {
     "name": "Artifact Hub Team"

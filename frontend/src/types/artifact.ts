@@ -38,4 +38,3 @@ export type ArtifactType = z.infer<typeof artifactTypeSchema>;
 export type Category = z.infer<typeof categorySchema>;
 export type ArtifactEntry = z.infer<typeof artifactEntrySchema>;
 export type ArtifactsIndexDocument = z.infer<typeof artifactsIndexSchema>;
-

@@ -4,11 +4,7 @@
   "description": "A sample task definition for deployment workflows",
   "type": "task",
   "category": "DevOps",
-  "tags": [
-    "deployment",
-    "automation",
-    "ci-cd"
-  ],
+  "tags": ["deployment", "automation", "ci-cd"],
   "version": "1.0.0",
   "author": {
     "name": "Artifact Hub Team"

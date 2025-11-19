@@ -35,5 +35,5 @@ Example 2: Advanced usage
 
 ---
 
-*Created: 2025-11-18*
-*Version: 1.0.0*
+_Created: 2025-11-18_
+_Version: 1.0.0_

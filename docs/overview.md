@@ -35,6 +35,7 @@ agent-library/
 ```
 
 See also:
+
 - docs/quickstart.md
 - docs/generators.md
 - docs/catalogs-and-hosting.md
@@ -42,5 +43,3 @@ See also:
 - docs/ci-cd.md
 - docs/private-catalogs.md
 - docs/troubleshooting.md
-
-

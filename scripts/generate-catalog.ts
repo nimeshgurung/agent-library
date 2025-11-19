@@ -38,11 +38,11 @@ function updateArtifactSupportingFiles(entry: IndexEntry): IndexEntry {
   try {
     // Scan for all files in the artifact directory
     const allFiles = getAllFiles(artifactDir);
-    const relativeFiles = allFiles.map(f => relative(resolve(projectRoot, 'artifacts'), f));
+    const relativeFiles = allFiles.map((f) => relative(resolve(projectRoot, 'artifacts'), f));
 
     // Filter out metadata.json and the main content file (README)
     // Also filter out hidden system files if any remain
-    const supportingFiles = relativeFiles.filter(f => {
+    const supportingFiles = relativeFiles.filter((f) => {
       const isMetadata = f === entry.paths.metadata;
       const isContent = f === entry.paths.content;
       return !isMetadata && !isContent;
@@ -50,7 +50,7 @@ function updateArtifactSupportingFiles(entry: IndexEntry): IndexEntry {
 
     return {
       ...entry,
-      supportingFiles
+      supportingFiles,
     };
   } catch (error) {
     console.warn(`Warning: Could not scan artifact directory for ${entry.id}:`, error);
@@ -115,7 +115,9 @@ function generateCatalog(): void {
   });
 
   if (validArtifacts.length < index.artifacts.length) {
-    console.log(`🧹 Cleaned up ${index.artifacts.length - validArtifacts.length} orphaned entries`);
+    console.log(
+      `🧹 Cleaned up ${String(index.artifacts.length - validArtifacts.length)} orphaned entries`,
+    );
   }
 
   // Pre-process artifacts to update agent supporting files from disk
@@ -128,9 +130,9 @@ function generateCatalog(): void {
   // Let's write back to index.json to ensure it's a source of truth
   const hasChanges = JSON.stringify(processedArtifacts) !== JSON.stringify(index.artifacts);
   if (hasChanges) {
-      console.log('🔄 Detected changes in artifact files, updating index.json...');
-      const newIndex = { ...index, artifacts: processedArtifacts };
-      writeFileSync(indexPath, JSON.stringify(newIndex, null, 2) + '\n', 'utf-8');
+    console.log('🔄 Detected changes in artifact files, updating index.json...');
+    const newIndex = { ...index, artifacts: processedArtifacts };
+    writeFileSync(indexPath, JSON.stringify(newIndex, null, 2) + '\n', 'utf-8');
   }
 
   // Transform all artifacts to catalog format
@@ -148,8 +150,7 @@ function generateCatalog(): void {
 
   // Create the catalog
   const catalog: CopilotCatalog = {
-    $schema:
-      'https://raw.githubusercontent.com/artifact-hub/schema/v1/catalog.schema.json',
+    $schema: 'https://raw.githubusercontent.com/artifact-hub/schema/v1/catalog.schema.json',
     version: '1.0.0',
     catalog: {
       id: 'artifact-hub-collection',
@@ -185,18 +186,13 @@ function generateCatalog(): void {
   const catalogPath = resolve(projectRoot, 'copilot-catalog.json');
   writeFileSync(catalogPath, JSON.stringify(catalog, null, 2) + '\n', 'utf-8');
 
-  console.log(
-    `✅ Generated copilot-catalog.json with ${String(artifacts.length)} artifacts`,
-  );
+  console.log(`✅ Generated copilot-catalog.json with ${String(artifacts.length)} artifacts`);
 
   // Print statistics by type
-  const stats = artifacts.reduce<Record<string, number>>(
-    (acc, a) => {
-      acc[a.type] = (acc[a.type] || 0) + 1;
-      return acc;
-    },
-    {},
-  );
+  const stats = artifacts.reduce<Record<string, number>>((acc, a) => {
+    acc[a.type] = (acc[a.type] || 0) + 1;
+    return acc;
+  }, {});
 
   console.log('\n📊 Artifact Statistics:');
   Object.entries(stats).forEach(([type, count]) => {

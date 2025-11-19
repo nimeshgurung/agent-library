@@ -79,10 +79,7 @@ export function createArtifactEntry(params: {
   };
 }
 
-export function createArtifactFiles(params: {
-  entry: IndexEntry;
-  contentTemplate: string;
-}): void {
+export function createArtifactFiles(params: { entry: IndexEntry; contentTemplate: string }): void {
   const artifactDir = join(projectRoot, 'artifacts', params.entry.slug);
 
   // Create directory
@@ -120,7 +117,7 @@ export function createAgentFiles(params: {
   // First create the standard files (metadata and main content/README)
   createArtifactFiles({
     entry: params.entry,
-    contentTemplate: params.contentTemplate
+    contentTemplate: params.contentTemplate,
   });
 
   const artifactDir = join(projectRoot, 'artifacts', params.entry.slug);
@@ -149,9 +146,7 @@ export function addToIndex(entry: IndexEntry): void {
   writeIndex(index);
 }
 
-export function parseArgs(
-  args: string[],
-): {
+export function parseArgs(args: string[]): {
   name?: string | undefined;
   description?: string | undefined;
   tags?: string[] | undefined;
@@ -208,9 +203,7 @@ export async function interactivePrompt(params: {
 }> {
   const name = params.name ?? (await prompt(`${params.type} name: `));
   const description = params.description ?? (await prompt('Description: '));
-  const tagsInput =
-    params.tags?.join(', ') ??
-    (await prompt('Tags (comma-separated): '));
+  const tagsInput = params.tags?.join(', ') ?? (await prompt('Tags (comma-separated): '));
   const tags = tagsInput.split(',').map((t) => t.trim());
   const authorName = params.author ?? (await prompt('Author name (optional): '));
 
