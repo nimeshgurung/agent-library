@@ -61,6 +61,14 @@ function updateArtifactSupportingFiles(entry: IndexEntry): IndexEntry {
 function transformToCatalogArtifact(entry: IndexEntry): CatalogArtifact {
   // Ensure paths are relative to the catalog root (which is artifacts/)
   // But the catalog says "path": "artifacts/..." so clients can find it relative to catalog root
+  const toPublishedPath = (p: string): string => {
+    // Publish-safe aliases to avoid dot-directories on static hosts:
+    // resources/.github/prompts/** -> resources/prompts/**
+    // resources/.github/agents/**  -> resources/agents/**
+    return p
+      .replace(/\/resources\/\.github\/prompts\//g, '/resources/prompts/')
+      .replace(/\/resources\/\.github\/agents\//g, '/resources/agents/');
+  };
   return {
     id: entry.id,
     type: entry.type,
@@ -73,7 +81,7 @@ function transformToCatalogArtifact(entry: IndexEntry): CatalogArtifact {
     keywords: entry.tags,
     ...(entry.author && { author: entry.author }),
     ...(entry.supportingFiles && entry.supportingFiles.length > 0
-      ? { supportingFiles: entry.supportingFiles.map((f) => `artifacts/${f}`) }
+      ? { supportingFiles: entry.supportingFiles.map((f) => `artifacts/${toPublishedPath(f)}`) }
       : {}),
     metadata: {
       createdAt: entry.createdAt,

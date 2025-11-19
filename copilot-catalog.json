@@ -31,7 +31,12 @@
       "Development",
       "TDD"
     ],
-    "categories": ["Examples", "Documentation", "DevOps", "Development"]
+    "categories": [
+      "Examples",
+      "Documentation",
+      "DevOps",
+      "Development"
+    ]
   },
   "artifacts": [
     {
@@ -42,8 +47,14 @@
       "path": "artifacts/chatmodes/example-chatmode/example-chatmode.chatmode.md",
       "version": "1.0.0",
       "category": "Examples",
-      "tags": ["example", "demo"],
-      "keywords": ["example", "demo"],
+      "tags": [
+        "example",
+        "demo"
+      ],
+      "keywords": [
+        "example",
+        "demo"
+      ],
       "author": {
         "name": "Artifact Hub"
       },
@@ -61,8 +72,16 @@
       "path": "artifacts/instructions/example-instructions/example-instructions.instructions.md",
       "version": "1.0.0",
       "category": "Documentation",
-      "tags": ["documentation", "guide", "tutorial"],
-      "keywords": ["documentation", "guide", "tutorial"],
+      "tags": [
+        "documentation",
+        "guide",
+        "tutorial"
+      ],
+      "keywords": [
+        "documentation",
+        "guide",
+        "tutorial"
+      ],
       "author": {
         "name": "Artifact Hub Team"
       },
@@ -80,8 +99,16 @@
       "path": "artifacts/tasks/example-task/example-task.task.md",
       "version": "1.0.0",
       "category": "DevOps",
-      "tags": ["deployment", "automation", "ci-cd"],
-      "keywords": ["deployment", "automation", "ci-cd"],
+      "tags": [
+        "deployment",
+        "automation",
+        "ci-cd"
+      ],
+      "keywords": [
+        "deployment",
+        "automation",
+        "ci-cd"
+      ],
       "author": {
         "name": "Artifact Hub Team"
       },
@@ -99,8 +126,16 @@
       "path": "artifacts/prompts/example-prompt/example-prompt.prompt.md",
       "version": "1.0.0",
       "category": "Development",
-      "tags": ["api", "design", "template"],
-      "keywords": ["api", "design", "template"],
+      "tags": [
+        "api",
+        "design",
+        "template"
+      ],
+      "keywords": [
+        "api",
+        "design",
+        "template"
+      ],
       "author": {
         "name": "Artifact Hub Team"
       },
@@ -118,27 +153,33 @@
       "path": "artifacts/agents/spec-kit/README.md",
       "version": "1.0.0",
       "category": "Development",
-      "tags": ["Development", "TDD"],
-      "keywords": ["Development", "TDD"],
+      "tags": [
+        "Development",
+        "TDD"
+      ],
+      "keywords": [
+        "Development",
+        "TDD"
+      ],
       "supportingFiles": [
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.analyze.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.checklist.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.clarify.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.constitution.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.implement.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.plan.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.specify.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.tasks.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/agents/speckit.taskstoissues.agent.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.analyze.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.checklist.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.clarify.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.constitution.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.implement.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.plan.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.specify.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.tasks.prompt.md",
-        "artifacts/agents/spec-kit/resources/.github/prompts/speckit.taskstoissues.prompt.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.analyze.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.checklist.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.clarify.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.constitution.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.implement.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.plan.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.specify.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.tasks.agent.md",
+        "artifacts/agents/spec-kit/resources/agents/speckit.taskstoissues.agent.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.analyze.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.checklist.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.clarify.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.constitution.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.implement.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.plan.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.specify.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.tasks.prompt.md",
+        "artifacts/agents/spec-kit/resources/prompts/speckit.taskstoissues.prompt.md",
         "artifacts/agents/spec-kit/resources/.specify/memory/constitution.md",
         "artifacts/agents/spec-kit/resources/.specify/scripts/bash/check-prerequisites.sh",
         "artifacts/agents/spec-kit/resources/.specify/scripts/bash/common.sh",
