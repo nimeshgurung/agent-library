@@ -52,7 +52,7 @@ export function createArtifactEntry(params: {
   const category = params.tags[0] ?? 'general';
 
   let contentPath: string;
-  if (params.type === 'bundle') {
+  if (params.type === 'agent') {
     contentPath = `${folder}/${slug}/README.md`;
   } else {
     const contentExtension = params.type === 'chatmode' ? 'chatmode.md' : `${params.type}.md`;
@@ -112,7 +112,7 @@ export function createArtifactFiles(params: {
   writeFileSync(contentPath, params.contentTemplate, 'utf-8');
 }
 
-export function createBundleFiles(params: {
+export function createAgentFiles(params: {
   entry: IndexEntry;
   contentTemplate: string;
   files: Record<string, string>; // relative path -> content
@@ -125,7 +125,7 @@ export function createBundleFiles(params: {
 
   const artifactDir = join(projectRoot, 'artifacts', params.entry.slug);
 
-  // Create additional bundle files
+  // Create additional agent files
   for (const [relPath, content] of Object.entries(params.files)) {
     const fullPath = join(artifactDir, relPath);
     const dir = dirname(fullPath);

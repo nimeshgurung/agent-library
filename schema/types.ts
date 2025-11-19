@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Artifact Types
-export const ArtifactTypeSchema = z.enum(['chatmode', 'prompt', 'instructions', 'task', 'bundle']);
+export const ArtifactTypeSchema = z.enum(['chatmode', 'prompt', 'instructions', 'task', 'agent']);
 export type ArtifactType = z.infer<typeof ArtifactTypeSchema>;
 
 // Author Schema

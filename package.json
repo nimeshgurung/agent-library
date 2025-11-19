@@ -1,6 +1,6 @@
 {
   "name": "artifact-hub-collection",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Enterprise template for publishing internal AI artifacts (chatmodes, prompts, instructions, tasks)",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "generate:prompt": "tsx scripts/generators/prompt.ts",
     "generate:instructions": "tsx scripts/generators/instructions.ts",
     "generate:task": "tsx scripts/generators/task.ts",
-    "generate:bundle": "tsx scripts/generators/bundle.ts",
+    "generate:agent": "tsx scripts/generators/agent.ts",
     "generate:catalog": "tsx scripts/generate-catalog.ts",
     "list:artifacts": "tsx scripts/list-artifacts.ts",
     "delete:artifact": "tsx scripts/delete-artifact.ts",

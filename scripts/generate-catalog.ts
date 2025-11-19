@@ -118,7 +118,7 @@ function generateCatalog(): void {
     console.log(`🧹 Cleaned up ${index.artifacts.length - validArtifacts.length} orphaned entries`);
   }
 
-  // Pre-process artifacts to update bundle supporting files from disk
+  // Pre-process artifacts to update agent supporting files from disk
   // This supports manual copy-paste workflows
   const processedArtifacts = validArtifacts.map(updateArtifactSupportingFiles);
 
