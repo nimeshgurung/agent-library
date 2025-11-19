@@ -202,4 +202,4 @@ MIT
 ## Links
 
 - Marketplace (Agent Hub extension): `https://marketplace.visualstudio.com/items?itemName=nimsbhai.agent-hub`
-- Agent Hub repo docs: `https://github.com/artifact-hub/artifact-hub`
+- Agent Hub repo docs: `https://github.com/nimeshgurung/agent-hub`

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, type ReactElement } from 'react';
 import { createPortal } from 'react-dom';
 
 import type { ArtifactEntry } from '../types/artifact';
+import { buildInstallDeepLink } from '../utils/vscodeDeepLink';
 
 interface ChatmodeDetailProps {
   readonly chatmode: ArtifactEntry | null;
@@ -58,11 +59,7 @@ export function ChatmodeDetail({
       return '#';
     }
 
-    // Convert to GitLab raw URL
-    const gitlabRawUrl = `https://gitlab.com/ai8994945/chatmode/-/raw/main/${chatmode.paths.content}`;
-    const encodedUrl = encodeURIComponent(gitlabRawUrl);
-
-    return `https://vscode.dev/redirect?url=vscode%3Achat-mode%2Finstall%3Furl%3D${encodedUrl}`;
+    return buildInstallDeepLink(chatmode);
   }, [chatmode]);
 
   useEffect(() => {
@@ -148,11 +145,12 @@ export function ChatmodeDetail({
           role="group"
           aria-label="Chatmode installation options"
         >
+          <p className="chatmode-detail__helper">
+            Requires VS Code and the Agent Hub extension
+          </p>
           <a
             className="chatmode-detail__button chatmode-detail__button--link chatmode-detail__button--vscode"
             href={getVSCodeInstallUrl()}
-            target="_blank"
-            rel="noreferrer"
           >
             <img
               src="https://img.shields.io/badge/Install-VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode"

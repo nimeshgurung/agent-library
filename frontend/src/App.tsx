@@ -9,6 +9,7 @@ import { CatalogFab } from './components/CatalogFab';
 import { useArtifactsData } from './hooks/useArtifactsData';
 import type { ArtifactEntry } from './types/artifact';
 import { resolveChatmodeAssetPath } from './utils/chatmodePaths';
+import { buildExtensionMarketplaceLink } from './utils/vscodeDeepLink';
 
 function stripFrontmatter(raw: string): string {
   const trimmed = raw.replace(/^\uFEFF/u, '').trimStart();
@@ -241,7 +242,7 @@ export function App(): ReactElement {
         <h1>Agent Library</h1>
         <div className="app-header__actions">
           <a
-            href="vscode:extension/nimsbhai.agent-hub"
+            href={buildExtensionMarketplaceLink()}
             className="chatmode-card__install-button"
             title="Install Agent Hub Extension"
           >
