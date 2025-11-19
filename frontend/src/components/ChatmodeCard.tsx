@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import { forwardRef } from 'react';
 
 import type { ArtifactEntry, ArtifactType } from '../types/artifact';
+import { buildInstallDeepLink } from '../utils/vscodeDeepLink';
 
 interface ChatmodeCardProps {
   readonly chatmode: ArtifactEntry;
@@ -31,14 +32,7 @@ export const ChatmodeCard = forwardRef<HTMLDivElement, ChatmodeCardProps>(functi
   const className = isActive ? 'chatmode-card chatmode-card--active' : 'chatmode-card';
 
   const typeInfo = getArtifactTypeBadge(chatmode.type);
-
-  const getVSCodeInstallUrl = () => {
-    // Convert to GitLab raw URL
-    const gitlabRawUrl = `https://gitlab.com/ai8994945/chatmode/-/raw/main/${chatmode.paths.content}`;
-    const encodedUrl = encodeURIComponent(gitlabRawUrl);
-
-    return `https://vscode.dev/redirect?url=vscode%3Achat-mode%2Finstall%3Furl%3D${encodedUrl}`;
-  };
+  const installUrl = buildInstallDeepLink(chatmode);
 
   return (
     <article
@@ -93,9 +87,7 @@ export const ChatmodeCard = forwardRef<HTMLDivElement, ChatmodeCardProps>(functi
           </time>
         </div>
         <a
-          href={getVSCodeInstallUrl()}
-          target="_blank"
-          rel="noreferrer"
+          href={installUrl}
           className="chatmode-card__install-button"
           onClick={(e) => {
             e.stopPropagation();

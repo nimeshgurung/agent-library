@@ -3,9 +3,11 @@ import type { ArtifactEntry } from '../types/artifact';
 // Extension ID format: publisher.extension-id
 const EXTENSION_ID = 'nimsbhai.agent-hub';
 
-// The default catalog URL from the Agent Library
-const DEFAULT_CATALOG_URL =
-  'https://nimeshgurung.github.io/agent-library/copilot-catalog.json';
+// Build catalog URL relative to the hosted site base path
+const CATALOG_URL = new URL(
+  'copilot-catalog.json',
+  `${window.location.origin}${import.meta.env.BASE_URL}`,
+).toString();
 
 export interface DeepLinkParams {
   artifactType: string;
@@ -24,7 +26,7 @@ export function buildInstallDeepLink(artifact: ArtifactEntry): string {
   const params: DeepLinkParams = {
     artifactType: artifact.type,
     artifactId: artifact.id,
-    catalogRepoUrl: DEFAULT_CATALOG_URL,
+    catalogRepoUrl: CATALOG_URL,
     catalogPath: 'copilot-catalog.json',
     source: 'agent-library-web',
   };
