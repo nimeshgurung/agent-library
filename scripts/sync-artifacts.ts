@@ -39,8 +39,16 @@ async function syncArtifacts(): Promise<void> {
       const dotGithubDir = join(resourcesDir, '.github');
       const promptsSrc = join(dotGithubDir, 'prompts');
       const agentsSrc = join(dotGithubDir, 'agents');
+      const chatmodesSrc = join(dotGithubDir, 'chatmodes');
+      const instructionsSrc = join(dotGithubDir, 'instructions');
+      const tasksSrc = join(dotGithubDir, 'tasks');
+      const profilesSrc = join(dotGithubDir, 'profiles');
       const promptsDst = join(resourcesDir, 'prompts');
       const agentsDst = join(resourcesDir, 'agents');
+      const chatmodesDst = join(resourcesDir, 'chatmodes');
+      const instructionsDst = join(resourcesDir, 'instructions');
+      const tasksDst = join(resourcesDir, 'tasks');
+      const profilesDst = join(resourcesDir, 'profiles');
 
       // Copy prompts alias if present
       try {
@@ -56,6 +64,38 @@ async function syncArtifacts(): Promise<void> {
         await cp(agentsSrc, agentsDst, { recursive: true });
       } catch {
         // no agents source; skip
+      }
+
+      // Copy chatmodes alias if present
+      try {
+        await stat(chatmodesSrc);
+        await cp(chatmodesSrc, chatmodesDst, { recursive: true });
+      } catch {
+        // no chatmodes source; skip
+      }
+
+      // Copy instructions alias if present
+      try {
+        await stat(instructionsSrc);
+        await cp(instructionsSrc, instructionsDst, { recursive: true });
+      } catch {
+        // no instructions source; skip
+      }
+
+      // Copy tasks alias if present
+      try {
+        await stat(tasksSrc);
+        await cp(tasksSrc, tasksDst, { recursive: true });
+      } catch {
+        // no tasks source; skip
+      }
+
+      // Copy profiles alias if present
+      try {
+        await stat(profilesSrc);
+        await cp(profilesSrc, profilesDst, { recursive: true });
+      } catch {
+        // no profiles source; skip
       }
 
       // Remove .github directory from public to avoid blocked serving

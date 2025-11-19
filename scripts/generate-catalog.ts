@@ -65,9 +65,17 @@ function transformToCatalogArtifact(entry: IndexEntry): CatalogArtifact {
     // Publish-safe aliases to avoid dot-directories on static hosts:
     // resources/.github/prompts/** -> resources/prompts/**
     // resources/.github/agents/**  -> resources/agents/**
+    // resources/.github/chatmodes/** -> resources/chatmodes/**
+    // resources/.github/instructions/** -> resources/instructions/**
+    // resources/.github/tasks/** -> resources/tasks/**
+    // resources/.github/profiles/** -> resources/profiles/**
     return p
       .replace(/\/resources\/\.github\/prompts\//g, '/resources/prompts/')
-      .replace(/\/resources\/\.github\/agents\//g, '/resources/agents/');
+      .replace(/\/resources\/\.github\/agents\//g, '/resources/agents/')
+      .replace(/\/resources\/\.github\/chatmodes\//g, '/resources/chatmodes/')
+      .replace(/\/resources\/\.github\/instructions\//g, '/resources/instructions/')
+      .replace(/\/resources\/\.github\/tasks\//g, '/resources/tasks/')
+      .replace(/\/resources\/\.github\/profiles\//g, '/resources/profiles/');
   };
   return {
     id: entry.id,
