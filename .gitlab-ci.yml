@@ -33,21 +33,46 @@ install:
 lint:
   stage: lint
   needs: ['install']
+  cache:
+    key: '$CI_COMMIT_REF_SLUG'
+    paths:
+      - .npm/
+      - node_modules/
+      - frontend/node_modules/
+    policy: pull
   script:
+    - npm ci --prefer-offline --no-audit
     - npm run lint
 
 typecheck:
   stage: typecheck
   needs: ['install']
+  cache:
+    key: '$CI_COMMIT_REF_SLUG'
+    paths:
+      - .npm/
+      - node_modules/
+      - frontend/node_modules/
+    policy: pull
   script:
+    - npm ci --prefer-offline --no-audit
     - npm run typecheck
 
 build:
   stage: build
   needs: ['lint', 'typecheck']
+  cache:
+    key: '$CI_COMMIT_REF_SLUG'
+    paths:
+      - .npm/
+      - node_modules/
+      - frontend/node_modules/
+    policy: pull
   script:
-    - npm run generate:catalog
+    - npm ci --prefer-offline --no-audit
+    - cd frontend && npm ci --prefer-offline --no-audit && cd ..
     - npm run build
+    - cp copilot-catalog.json frontend/dist/
   artifacts:
     expire_in: 1 week
     paths:
@@ -60,7 +85,6 @@ pages:
   script:
     - mkdir -p public
     - cp -r frontend/dist/* public/
-    - cp copilot-catalog.json public/
   artifacts:
     expire_in: 1 week
     paths:
