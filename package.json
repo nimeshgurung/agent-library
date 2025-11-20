@@ -23,6 +23,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "dompurify": "^3.3.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
