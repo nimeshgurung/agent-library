@@ -40,12 +40,12 @@ function updateArtifactSupportingFiles(entry: IndexEntry): IndexEntry {
     const allFiles = getAllFiles(artifactDir);
     const relativeFiles = allFiles.map((f) => relative(resolve(projectRoot, 'artifacts'), f));
 
-    // Filter out metadata.json and the main content file (README)
-    // Also filter out hidden system files if any remain
+    // Filter out metadata.json, the main content file, and internal docs
     const supportingFiles = relativeFiles.filter((f) => {
       const isMetadata = f === entry.paths.metadata;
       const isContent = f === entry.paths.content;
-      return !isMetadata && !isContent;
+      const isInternalReadme = f.endsWith('README.resources.md');
+      return !isMetadata && !isContent && !isInternalReadme;
     });
 
     return {

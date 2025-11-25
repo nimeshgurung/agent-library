@@ -191,8 +191,7 @@
         "artifacts/agents/spec-kit/resources/.specify/templates/plan-template.md",
         "artifacts/agents/spec-kit/resources/.specify/templates/spec-template.md",
         "artifacts/agents/spec-kit/resources/.specify/templates/tasks-template.md",
-        "artifacts/agents/spec-kit/resources/.vscode/settings.json",
-        "artifacts/agents/spec-kit/resources/README.resources.md"
+        "artifacts/agents/spec-kit/resources/.vscode/settings.json"
       ],
       "metadata": {
         "createdAt": "2025-11-19T12:57:06.524Z",
