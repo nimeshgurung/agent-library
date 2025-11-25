@@ -37,7 +37,7 @@ function isLikelyHtmlDocument(raw: string): boolean {
 }
 
 export function App(): ReactElement {
-  const { artifacts: chatmodes, tagIndex, typeIndex, loading, error, refresh } = useArtifactsData();
+  const { artifacts: chatmodes, typeIndex, loading, error, refresh } = useArtifactsData();
   const [query, setQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<ArtifactType | null>(null);
@@ -50,6 +50,29 @@ export function App(): ReactElement {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  // Compute tags filtered by selected type
+  const filteredTagIndex = useMemo(() => {
+    const artifactsForTags = selectedType
+      ? chatmodes.filter((a) => a.type === selectedType)
+      : chatmodes;
+
+    const counts = new Map<string, number>();
+    for (const artifact of artifactsForTags) {
+      for (const tag of artifact.tags) {
+        counts.set(tag, (counts.get(tag) ?? 0) + 1);
+      }
+    }
+
+    return Array.from(counts.entries())
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((left, right) => {
+        if (left.count === right.count) {
+          return left.tag.localeCompare(right.tag);
+        }
+        return right.count - left.count;
+      });
+  }, [chatmodes, selectedType]);
 
   const filteredChatmodes = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -75,12 +98,23 @@ export function App(): ReactElement {
     setActiveIndex(-1);
   }, []);
 
-  const handleTypeSelect = useCallback((type: ArtifactType | null) => {
-    setSelectedType(type);
-    setIsDetailOpen(false);
-    setSelectedChatmode(null);
-    setActiveIndex(-1);
-  }, []);
+  const handleTypeSelect = useCallback(
+    (type: ArtifactType | null) => {
+      setSelectedType(type);
+      // Clear tag if it doesn't exist in the new type filter
+      if (selectedTag) {
+        const artifactsForType = type ? chatmodes.filter((a) => a.type === type) : chatmodes;
+        const tagExists = artifactsForType.some((a) => a.tags.includes(selectedTag));
+        if (!tagExists) {
+          setSelectedTag(null);
+        }
+      }
+      setIsDetailOpen(false);
+      setSelectedChatmode(null);
+      setActiveIndex(-1);
+    },
+    [chatmodes, selectedTag],
+  );
 
   const registerCardRef = useCallback((index: number) => {
     return (element: HTMLDivElement | null) => {
@@ -273,7 +307,7 @@ export function App(): ReactElement {
       />
 
       <FilterPanel
-        tags={tagIndex}
+        tags={filteredTagIndex}
         types={typeIndex}
         selectedTag={selectedTag}
         selectedType={selectedType}
