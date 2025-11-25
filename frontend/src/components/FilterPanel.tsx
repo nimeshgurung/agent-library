@@ -1,131 +1,120 @@
 import type { ReactElement } from 'react';
-import { useRef, useState, useEffect } from 'react';
-import { flushSync } from 'react-dom';
+import { useState, useMemo } from 'react';
 
-import type { TagFacet } from '../hooks/useChatmodesData';
+import type { TagFacet, TypeFacet } from '../hooks/useArtifactsData';
+import type { ArtifactType } from '../types/artifact';
 
 interface FilterPanelProps {
   readonly tags: ReadonlyArray<TagFacet>;
+  readonly types: ReadonlyArray<TypeFacet>;
   readonly selectedTag: string | null;
+  readonly selectedType: ArtifactType | null;
   readonly onSelectTag: (tag: string | null) => void;
+  readonly onSelectType: (type: ArtifactType | null) => void;
 }
 
-export function FilterPanel({ tags, selectedTag, onSelectTag }: FilterPanelProps): ReactElement {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(false);
+const INITIAL_TAGS_SHOWN = 5;
 
-  const updateArrows = (): void => {
-    const container = scrollContainerRef.current;
-    if (!container) {
-      return;
+export function FilterPanel({
+  tags,
+  types,
+  selectedTag,
+  selectedType,
+  onSelectTag,
+  onSelectType,
+}: FilterPanelProps): ReactElement {
+  const [showAllTags, setShowAllTags] = useState(false);
+
+  const totalCount = types.reduce((sum, facet) => sum + facet.count, 0);
+
+  const visibleTags = useMemo(() => {
+    if (showAllTags) {
+      return tags;
     }
-
-    setShowLeftArrow(container.scrollLeft > 0);
-    setShowRightArrow(container.scrollLeft < container.scrollWidth - container.clientWidth - 1);
-  };
-
-  useEffect(() => {
-    updateArrows();
-    const container = scrollContainerRef.current;
-    if (!container) {
-      return;
+    // Always show selected tag if it exists
+    if (selectedTag) {
+      const selectedIndex = tags.findIndex((t) => t.tag === selectedTag);
+      const selectedTagFacet = tags[selectedIndex];
+      if (selectedIndex >= INITIAL_TAGS_SHOWN && selectedTagFacet) {
+        const result = [...tags.slice(0, INITIAL_TAGS_SHOWN - 1)];
+        result.push(selectedTagFacet);
+        return result;
+      }
     }
+    return tags.slice(0, INITIAL_TAGS_SHOWN);
+  }, [tags, showAllTags, selectedTag]);
 
-    const resizeObserver = new ResizeObserver(updateArrows);
-    resizeObserver.observe(container);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [tags]);
-
-  const scroll = (direction: 'left' | 'right'): void => {
-    const container = scrollContainerRef.current;
-    if (!container) {
-      return;
-    }
-
-    const scrollAmount = 200;
-    container.scrollBy({
-      left: direction === 'left' ? -scrollAmount : scrollAmount,
-      behavior: 'smooth',
-    });
-  };
-
-  const totalCount = tags.reduce((sum, facet) => sum + facet.count, 0);
+  const hiddenCount = tags.length - INITIAL_TAGS_SHOWN;
+  const hasMoreTags = hiddenCount > 0;
 
   return (
-    <nav className="tab-panel" aria-label="Category navigation">
-      {showLeftArrow && (
-        <button
-          type="button"
-          className="tab-panel__arrow tab-panel__arrow--left"
-          onClick={() => {
-            scroll('left');
-          }}
-          aria-label="Scroll left"
-        >
-          ‹
-        </button>
-      )}
-
-      <div
-        ref={scrollContainerRef}
-        className="tab-panel__container"
-        onScroll={updateArrows}
-        role="tablist"
-      >
+    <div className="filter-panel">
+      {/* Primary: Type filters */}
+      <nav className="filter-panel__types" aria-label="Category navigation">
         <button
           type="button"
           role="tab"
-          aria-selected={selectedTag === null}
-          className={`tab-panel__tab ${selectedTag === null ? 'tab-panel__tab--active' : ''}`}
+          aria-selected={selectedType === null}
+          className={`filter-panel__type-btn ${selectedType === null ? 'filter-panel__type-btn--active' : ''}`}
           onClick={() => {
-            onSelectTag(null);
+            onSelectType(null);
           }}
         >
-          <span className="tab-panel__tab-label">All</span>
-          <span className="tab-panel__tab-count">{totalCount}</span>
+          <span className="filter-panel__type-label">All</span>
+          <span className="filter-panel__type-count">{totalCount}</span>
         </button>
 
-        {tags.map((facet) => {
-          const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-            event.preventDefault();
-            event.stopPropagation();
-            flushSync(() => {
-              onSelectTag(facet.tag);
-            });
-          };
+        {types.map((facet) => (
+          <button
+            key={facet.type}
+            type="button"
+            role="tab"
+            aria-selected={selectedType === facet.type}
+            className={`filter-panel__type-btn ${selectedType === facet.type ? 'filter-panel__type-btn--active' : ''}`}
+            onClick={() => {
+              onSelectType(facet.type);
+            }}
+          >
+            <span className="filter-panel__type-label">{facet.label}</span>
+            <span className="filter-panel__type-count">{facet.count}</span>
+          </button>
+        ))}
+      </nav>
 
-          return (
-            <button
-              key={facet.tag}
-              type="button"
-              role="tab"
-              aria-selected={selectedTag === facet.tag}
-              className={`tab-panel__tab ${selectedTag === facet.tag ? 'tab-panel__tab--active' : ''}`}
-              onClick={handleClick}
-            >
-              <span className="tab-panel__tab-label">{facet.tag}</span>
-              <span className="tab-panel__tab-count">{facet.count}</span>
-            </button>
-          );
-        })}
-      </div>
+      {/* Secondary: Tag filters */}
+      {tags.length > 0 && (
+        <div className="filter-panel__tags">
+          <span className="filter-panel__tags-label">Tags:</span>
+          <div className="filter-panel__tags-list">
+            {visibleTags.map((facet) => (
+              <button
+                key={facet.tag}
+                type="button"
+                className={`filter-panel__tag ${selectedTag === facet.tag ? 'filter-panel__tag--active' : ''}`}
+                onClick={() => {
+                  onSelectTag(selectedTag === facet.tag ? null : facet.tag);
+                }}
+              >
+                {facet.tag}
+                <span className="filter-panel__tag-count">{facet.count}</span>
+              </button>
+            ))}
 
-      {showRightArrow && (
-        <button
-          type="button"
-          className="tab-panel__arrow tab-panel__arrow--right"
-          onClick={() => {
-            scroll('right');
-          }}
-          aria-label="Scroll right"
-        >
-          ›
-        </button>
+            {hasMoreTags && (
+              <button
+                type="button"
+                className="filter-panel__more-btn"
+                onClick={() => {
+                  setShowAllTags(!showAllTags);
+                }}
+                aria-expanded={showAllTags}
+              >
+                {showAllTags ? 'Show less' : `+${hiddenCount.toString()} more`}
+              </button>
+            )}
+          </div>
+        </div>
       )}
-    </nav>
+    </div>
   );
 }

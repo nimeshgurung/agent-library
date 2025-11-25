@@ -154,5 +154,3 @@ export function EditorPreview({
     </div>
   );
 }
-
-

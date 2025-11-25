@@ -60,19 +60,19 @@ export function ChatmodeDetail({
     if (chatmode.supportingFiles && chatmode.supportingFiles.length > 0) {
       // Get the artifact base path (e.g., "agents/spec-kit")
       const slugParts = chatmode.slug.split('/');
-      const artifactFolder = slugParts[slugParts.length - 1]; // e.g., "spec-kit"
+      const artifactFolder = slugParts[slugParts.length - 1] ?? ''; // e.g., "spec-kit"
 
       // Filter out metadata.json and get relative paths from artifact root
       const supportingFilesFiltered = chatmode.supportingFiles
         .filter((f) => !f.endsWith('metadata.json'))
-        .map((f) => {
+        .map((f): string => {
           // Find the artifact folder in the path and get everything after it
           const parts = f.split('/');
           const artifactIdx = parts.indexOf(artifactFolder);
           if (artifactIdx !== -1 && artifactIdx < parts.length - 1) {
             return parts.slice(artifactIdx + 1).join('/');
           }
-          return parts[parts.length - 1];
+          return parts[parts.length - 1] ?? f;
         });
       files.push(...supportingFilesFiltered);
     }
@@ -118,15 +118,16 @@ export function ChatmodeDetail({
         // Normalize the path - the catalog generator adds .github/ prefix for agents/prompts
         // to indicate where they'll be installed, but source files are at resources/agents/
         // Keep .specify/ paths as-is since those directories actually exist
-        const normalizedFile = selectedFile
-          .replace(/^resources\/\.github\//, 'resources/');
+        const normalizedFile = selectedFile.replace(/^resources\/\.github\//, 'resources/');
 
         const filePath = `${basePath}/${normalizedFile}`;
         const resolvedPath = resolveChatmodeAssetPath(filePath);
 
         const response = await fetch(resolvedPath, { cache: 'no-cache' });
         if (!response.ok) {
-          throw new Error(`Failed to load file: ${response.status} ${response.statusText}`);
+          throw new Error(
+            `Failed to load file: ${response.status.toString()} ${response.statusText}`,
+          );
         }
 
         const text = await response.text();
@@ -137,8 +138,7 @@ export function ChatmodeDetail({
         }
       } catch (thrown) {
         if (!cancelled) {
-          const err =
-            thrown instanceof Error ? thrown : new Error('Failed to load file content.');
+          const err = thrown instanceof Error ? thrown : new Error('Failed to load file content.');
           setFileError(err);
           setFileLoading(false);
         }
@@ -183,7 +183,9 @@ export function ChatmodeDetail({
       // Force re-fetch by updating selectedFile
       const current = selectedFile;
       setSelectedFile(null);
-      setTimeout(() => setSelectedFile(current), 0);
+      setTimeout(() => {
+        setSelectedFile(current);
+      }, 0);
     }
   }, [chatmode, selectedFile, onRetry]);
 
@@ -191,7 +193,8 @@ export function ChatmodeDetail({
     return null;
   }
 
-  const currentFilename = selectedFile || getMainFilename(chatmode!);
+  const currentFilename =
+    selectedFile ?? getMainFilename(chatmode ?? ({ paths: { content: '' } } as ArtifactEntry));
   const isMarkdown = currentFilename.endsWith('.md');
 
   return createPortal(
@@ -232,7 +235,7 @@ export function ChatmodeDetail({
               files={fileList}
               selectedFile={selectedFile}
               onSelectFile={handleFileSelect}
-              artifactType={chatmode?.type}
+              artifactType={chatmode?.type ?? 'chatmode'}
             />
 
             <EditorPreview
@@ -247,9 +250,7 @@ export function ChatmodeDetail({
 
           {/* Footer */}
           <footer className="ide-layout__footer">
-            <span className="ide-layout__footer-info">
-              Requires VS Code + Agent Hub extension
-            </span>
+            <span className="ide-layout__footer-info">Requires VS Code + Agent Hub extension</span>
             <div className="ide-layout__footer-actions">
               <a
                 href={getVSCodeInstallUrl()}

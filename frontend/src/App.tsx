@@ -7,7 +7,7 @@ import { FilterPanel } from './components/FilterPanel';
 import { SearchBar } from './components/SearchBar';
 import { CatalogFab } from './components/CatalogFab';
 import { useArtifactsData } from './hooks/useArtifactsData';
-import type { ArtifactEntry } from './types/artifact';
+import type { ArtifactEntry, ArtifactType } from './types/artifact';
 import { resolveChatmodeAssetPath } from './utils/chatmodePaths';
 import { buildExtensionMarketplaceLink } from './utils/vscodeDeepLink';
 
@@ -37,9 +37,10 @@ function isLikelyHtmlDocument(raw: string): boolean {
 }
 
 export function App(): ReactElement {
-  const { artifacts: chatmodes, tagIndex, loading, error, refresh } = useArtifactsData();
+  const { artifacts: chatmodes, tagIndex, typeIndex, loading, error, refresh } = useArtifactsData();
   const [query, setQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<ArtifactType | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [selectedChatmode, setSelectedChatmode] = useState<ArtifactEntry | null>(null);
   const [chatmodeContent, setChatmodeContent] = useState<string | null>(null);
@@ -61,13 +62,21 @@ export function App(): ReactElement {
         : true;
 
       const matchesTag = selectedTag ? chatmode.tags.includes(selectedTag) : true;
+      const matchesType = selectedType ? chatmode.type === selectedType : true;
 
-      return matchesQuery && matchesTag;
+      return matchesQuery && matchesTag && matchesType;
     });
-  }, [chatmodes, query, selectedTag]);
+  }, [chatmodes, query, selectedTag, selectedType]);
 
   const handleTagSelect = useCallback((tag: string | null) => {
     setSelectedTag(tag);
+    setIsDetailOpen(false);
+    setSelectedChatmode(null);
+    setActiveIndex(-1);
+  }, []);
+
+  const handleTypeSelect = useCallback((type: ArtifactType | null) => {
+    setSelectedType(type);
     setIsDetailOpen(false);
     setSelectedChatmode(null);
     setActiveIndex(-1);
@@ -137,6 +146,7 @@ export function App(): ReactElement {
 
   const handleResetFilters = useCallback(() => {
     setSelectedTag(null);
+    setSelectedType(null);
     setQuery('');
     setActiveIndex(-1);
     setSelectedChatmode(null);
@@ -262,7 +272,14 @@ export function App(): ReactElement {
         onClear={handleResetFilters}
       />
 
-      <FilterPanel tags={tagIndex} selectedTag={selectedTag} onSelectTag={handleTagSelect} />
+      <FilterPanel
+        tags={tagIndex}
+        types={typeIndex}
+        selectedTag={selectedTag}
+        selectedType={selectedType}
+        onSelectTag={handleTagSelect}
+        onSelectType={handleTypeSelect}
+      />
 
       {loading ? (
         <section aria-live="polite" className="results-summary">
@@ -279,10 +296,13 @@ export function App(): ReactElement {
         <>
           <section aria-live="polite" className="results-summary">
             {filteredChatmodes.length ? (
-              <span>{filteredChatmodes.length} chatmode(s) match your criteria.</span>
+              <span>
+                {filteredChatmodes.length} artifact{filteredChatmodes.length !== 1 ? 's' : ''} match
+                your criteria.
+              </span>
             ) : (
               <span role="status">
-                No chatmodes match your current search and filter combination.
+                No artifacts match your current search and filter combination.
               </span>
             )}
           </section>

@@ -21,6 +21,7 @@ vscode://nimsbhai.agent-hub/installArtifact?artifactType=TYPE&artifactId=ID&cata
 ```
 
 **Parameters:**
+
 - `artifactType`: The type of artifact (e.g., `chatmode`, `prompt`, `agent`, `task`, `instructions`)
 - `artifactId`: The unique ID of the artifact from the catalog
 - `catalogRepoUrl`: The URL of the catalog JSON file (helps the extension auto-add the catalog if missing)
@@ -28,6 +29,7 @@ vscode://nimsbhai.agent-hub/installArtifact?artifactType=TYPE&artifactId=ID&cata
 - `source`: Tracking parameter (set to `agent-library-web`)
 
 **Implementation:**
+
 - See `frontend/src/utils/vscodeDeepLink.ts` for the link builder
 - Used in `frontend/src/components/ChatmodeDetail.tsx` for the install button
 
@@ -44,6 +46,7 @@ The extension registers a URI handler in `src/extension.ts` that:
 5. **Shows success/error feedback** to the user
 
 **Key functions:**
+
 - `handleDeepLink()`: Main router for deep link actions
 - `handleInstallArtifact()`: Handles the `/installArtifact` action
 - `ensureCatalogExists()`: Ensures catalog is added before installing
@@ -51,6 +54,7 @@ The extension registers a URI handler in `src/extension.ts` that:
 ## User Experience Flow
 
 ### Happy Path
+
 1. User browses Agent Library website
 2. User clicks "Install in VS Code" on an artifact
 3. Browser prompts: "Open Visual Studio Code?"
@@ -64,6 +68,7 @@ The extension registers a URI handler in `src/extension.ts` that:
 9. User sees: "Installed [type] '[name]' from Agent Library"
 
 ### Missing Extension
+
 - If the Agent Hub extension is not installed, the deep link won't work
 - The frontend displays helper text: "Requires VS Code and the Agent Hub extension"
 - Users can click the "Install Agent Hub" badge in the header to install the extension
@@ -73,12 +78,14 @@ The extension registers a URI handler in `src/extension.ts` that:
 ### Test the deep link locally:
 
 1. Start the frontend dev server:
+
    ```bash
    cd frontend
    npm run dev
    ```
 
 2. Build and run the extension:
+
    ```bash
    cd ../agent-hub
    npm run build
@@ -92,6 +99,7 @@ The extension registers a URI handler in `src/extension.ts` that:
 ### Manual deep link test:
 
 Open this URL directly in your browser (replace with your catalog):
+
 ```
 vscode://nimsbhai.agent-hub/installArtifact?artifactType=chatmode&artifactId=example-chatmode&catalogRepoUrl=https://nimeshgurung.github.io/agent-library/copilot-catalog.json&catalogPath=copilot-catalog.json
 ```
@@ -101,6 +109,7 @@ vscode://nimsbhai.agent-hub/installArtifact?artifactType=chatmode&artifactId=exa
 ### Changing the extension ID
 
 If the extension publisher or ID changes, update:
+
 - `frontend/src/utils/vscodeDeepLink.ts`: `EXTENSION_ID` constant
 - `agent-hub/package.json`: `publisher` field
 
@@ -121,4 +130,3 @@ Update `DEFAULT_CATALOG_URL` in `frontend/src/utils/vscodeDeepLink.ts`.
 - **Bi-directional communication**: Extension could POST back to an API endpoint to confirm installation (requires auth design)
 - **First-time setup modal**: Show a step-by-step guide on first click (detect via localStorage)
 - **Timeout hints**: Show a helper modal after 3-5s if VS Code doesn't appear to open
-

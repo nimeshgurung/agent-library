@@ -13,6 +13,8 @@ interface ChatmodeCardProps {
 
 function getArtifactTypeBadge(type: ArtifactType): { label: string; className: string } {
   switch (type) {
+    case 'agent':
+      return { label: 'Agent', className: 'artifact-type-badge--agent' };
     case 'prompt':
       return { label: 'Prompt', className: 'artifact-type-badge--prompt' };
     case 'instructions':

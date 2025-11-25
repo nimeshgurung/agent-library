@@ -33,7 +33,7 @@ export function buildInstallDeepLink(artifact: ArtifactEntry): string {
 
   // Build query string
   const query = new URLSearchParams(
-    Object.entries(params).filter(([, value]) => value !== undefined) as Array<[string, string]>
+    Object.entries(params).filter(([, value]) => value !== undefined) as Array<[string, string]>,
   ).toString();
 
   // vscode://publisher.extension-id/installArtifact?...
@@ -46,4 +46,3 @@ export function buildInstallDeepLink(artifact: ArtifactEntry): string {
 export function buildExtensionMarketplaceLink(): string {
   return `vscode:extension/${EXTENSION_ID}`;
 }
-

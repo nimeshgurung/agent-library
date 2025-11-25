@@ -4,7 +4,7 @@ export interface FileNode {
   name: string;
   path: string;
   type: 'file' | 'folder';
-  children?: FileNode[];
+  children?: FileNode[] | undefined;
 }
 
 interface FileTreeProps {
@@ -29,19 +29,21 @@ function buildFileTree(files: string[], rootName: string): FileNode {
 
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
+      if (!part) continue;
+
       const isLast = i === parts.length - 1;
       const currentPath = parts.slice(0, i + 1).join('/');
 
       let child = currentNode.children?.find((c) => c.name === part);
 
       if (!child) {
-        child = {
-          name: part,
-          path: currentPath,
-          type: isLast ? 'file' : 'folder',
-          children: isLast ? undefined : [],
-        };
-        currentNode.children = currentNode.children || [];
+        const newNode: FileNode = isLast
+          ? { name: part, path: currentPath, type: 'file' }
+          : { name: part, path: currentPath, type: 'folder', children: [] };
+        child = newNode;
+        if (!currentNode.children) {
+          currentNode.children = [];
+        }
         currentNode.children.push(child);
       }
 
@@ -52,13 +54,15 @@ function buildFileTree(files: string[], rootName: string): FileNode {
   }
 
   // Sort: folders first, then files, alphabetically
-  const sortNodes = (nodes: FileNode[] | undefined): FileNode[] | undefined => {
-    if (!nodes) return undefined;
+  const sortNodes = (nodes: FileNode[] | undefined): FileNode[] => {
+    if (!nodes) return [];
     return nodes
-      .map((node) => ({
-        ...node,
-        children: sortNodes(node.children),
-      }))
+      .map((node): FileNode => {
+        if (node.children) {
+          return { ...node, children: sortNodes(node.children) };
+        }
+        return { name: node.name, path: node.path, type: node.type };
+      })
       .sort((a, b) => {
         if (a.type !== b.type) {
           return a.type === 'folder' ? -1 : 1;
@@ -96,7 +100,7 @@ function countFolders(node: FileNode): number {
   if (!node.children) return 0;
   return node.children.reduce(
     (sum, child) => sum + (child.type === 'folder' ? 1 : 0) + countFolders(child),
-    0
+    0,
   );
 }
 
@@ -137,13 +141,15 @@ function FileNodeComponent({
         className={`file-tree__item ${isSelected ? 'file-tree__item--selected' : ''} ${
           node.type === 'folder' ? 'file-tree__item--folder' : ''
         }`}
-        style={{ paddingLeft: `${12 + depth * 16}px` }}
+        style={{ paddingLeft: `${(12 + depth * 16).toString()}px` }}
         onClick={handleClick}
         aria-selected={isSelected}
         aria-expanded={node.type === 'folder' ? isExpanded : undefined}
       >
         {node.type === 'folder' && hasChildren && (
-          <span className={`file-tree__chevron ${isExpanded ? '' : 'file-tree__chevron--collapsed'}`}>
+          <span
+            className={`file-tree__chevron ${isExpanded ? '' : 'file-tree__chevron--collapsed'}`}
+          >
             ▾
           </span>
         )}
@@ -156,7 +162,7 @@ function FileNodeComponent({
 
       {hasChildren && isExpanded && (
         <ul className="file-tree__children">
-          {node.children!.map((child) => (
+          {(node.children ?? []).map((child) => (
             <FileNodeComponent
               key={child.path}
               node={child}
