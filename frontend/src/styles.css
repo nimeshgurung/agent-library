@@ -583,16 +583,17 @@ body {
 }
 
 .chatmode-card {
+  position: relative;
   background: var(--bg-elevated);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-default);
-  padding: 20px;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
   transition: all 0.2s ease;
-  cursor: pointer;
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .chatmode-card:focus {
@@ -601,7 +602,6 @@ body {
 }
 
 .chatmode-card:hover {
-  transform: translateY(-4px);
   border-color: var(--interactive-primary);
   box-shadow: var(--shadow-lg);
 }
@@ -611,7 +611,33 @@ body {
   box-shadow: 0 0 0 3px var(--interactive-muted);
 }
 
+.chatmode-card__expand-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.15s ease;
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
+}
+
+.chatmode-card:hover .chatmode-card__expand-icon {
+  opacity: 1;
+  transform: scale(1);
+  color: var(--interactive-primary);
+}
+
 .chatmode-card__header {
+  padding: 20px 20px 0;
   margin-bottom: 8px;
 }
 
@@ -666,6 +692,7 @@ body {
 
 .chatmode-card__description {
   margin: 0;
+  padding: 0 20px;
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
@@ -680,8 +707,7 @@ body {
   align-content: flex-end;
   gap: 8px;
   margin: 0;
-  margin-top: auto;
-  padding: 0;
+  padding: 12px 20px;
 }
 
 .chatmode-card__tags li {
@@ -699,6 +725,38 @@ body {
   white-space: nowrap;
 }
 
+.chatmode-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--stone-50);
+}
+
+.chatmode-card__timestamp {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.chatmode-card__install-badge {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  border-radius: 4px;
+}
+
+.chatmode-card__install-badge:hover {
+  transform: scale(1.02);
+}
+
+.chatmode-card__install-badge img {
+  height: 22px;
+  width: auto;
+}
+
+/* Legacy - keep for potential backward compat */
 .chatmode-card__footer {
   display: flex;
   flex-direction: row;
@@ -713,11 +771,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.chatmode-card__timestamp {
-  font-size: 0.85rem;
-  color: var(--text-muted);
 }
 
 .chatmode-card__install-button {

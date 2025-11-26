@@ -40,8 +40,8 @@ export const ChatmodeCard = forwardRef<HTMLDivElement, ChatmodeCardProps>(functi
     <article
       ref={ref}
       className={className}
-      role="button"
       tabIndex={0}
+      role="button"
       aria-selected={isActive}
       aria-haspopup="dialog"
       onFocus={onFocus}
@@ -55,8 +55,25 @@ export const ChatmodeCard = forwardRef<HTMLDivElement, ChatmodeCardProps>(functi
           onClick();
         }
       }}
-      aria-label={`${chatmode.name} chatmode card`}
+      aria-label={`${chatmode.name} artifact card`}
     >
+      <span className="chatmode-card__expand-icon" aria-hidden="true">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="15 3 21 3 21 9" />
+          <polyline points="9 21 3 21 3 15" />
+          <line x1="21" y1="3" x2="14" y2="10" />
+          <line x1="3" y1="21" x2="10" y2="14" />
+        </svg>
+      </span>
       <header className="chatmode-card__header">
         <div className="chatmode-card__header-main">
           <h3>{chatmode.name}</h3>
@@ -77,31 +94,29 @@ export const ChatmodeCard = forwardRef<HTMLDivElement, ChatmodeCardProps>(functi
         ))}
       </ul>
 
-      <footer className="chatmode-card__footer">
-        <div className="chatmode-card__footer-info">
-          <time dateTime={chatmode.updatedAt} className="chatmode-card__timestamp">
-            Updated{' '}
-            {new Date(chatmode.updatedAt).toLocaleDateString(undefined, {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-            })}
-          </time>
-        </div>
+      <div className="chatmode-card__meta">
+        <time dateTime={chatmode.updatedAt} className="chatmode-card__timestamp">
+          Updated{' '}
+          {new Date(chatmode.updatedAt).toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </time>
         <a
           href={installUrl}
-          className="chatmode-card__install-button"
+          className="chatmode-card__install-badge"
+          aria-label="Install in VS Code"
           onClick={(e) => {
             e.stopPropagation();
           }}
-          aria-label="Install in VS Code"
         >
           <img
             src="https://img.shields.io/badge/Install-VS%20Code-007ACC?logo=visualstudiocode"
             alt="Install in VS Code"
           />
         </a>
-      </footer>
+      </div>
     </article>
   );
 });

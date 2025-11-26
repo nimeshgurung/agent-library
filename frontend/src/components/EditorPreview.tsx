@@ -110,27 +110,18 @@ export function EditorPreview({
             )}
           </div>
         ) : content ? (
-          <>
-            <div className="editor-gutter" aria-hidden="true">
-              {lines.map((_, i) => (
-                <span key={i} className="editor-gutter__line">
-                  {i + 1}
-                </span>
-              ))}
-            </div>
-            <div className="editor-content">
-              {isMarkdown && renderedMarkdown ? (
-                <div
-                  className="editor-content__markdown"
-                  dangerouslySetInnerHTML={{ __html: renderedMarkdown }}
-                />
-              ) : (
-                <pre className="editor-content__raw">
-                  <code>{content}</code>
-                </pre>
-              )}
-            </div>
-          </>
+          <div className="editor-content">
+            {isMarkdown && renderedMarkdown ? (
+              <div
+                className="editor-content__markdown"
+                dangerouslySetInnerHTML={{ __html: renderedMarkdown }}
+              />
+            ) : (
+              <pre className="editor-content__raw">
+                <code>{content}</code>
+              </pre>
+            )}
+          </div>
         ) : (
           <div className="editor-body__status">
             <p>No content available</p>
